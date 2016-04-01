@@ -1,13 +1,13 @@
 {
   "name": "openpicker",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Open Picker : Open source and self hosted file picker for websites",
   "engines": {
     "node": "4.2.2",
     "npm": "2.x.x"
   },
-  "bin" : {
-    "openpicker" : "./bin/start"
+  "bin": {
+    "openpicker": "./bin/start"
   },
   "dependencies": {
     "express": "4.10.x",
