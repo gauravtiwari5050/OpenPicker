@@ -9,7 +9,7 @@
   <button id="button">Upload Image</button>
   <img id="image" src="" alt="" />
 </body>
-<script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
+
 <script type="text/javascript">
   // <snip>
   
@@ -21,14 +21,15 @@
   })(window,document);
 </script>
 <script type="text/javascript">
-
-$('#button').click(function(){
-    window.openpicker.getFiles({conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
+setTimeout(function() {
+  window.openpicker.getFiles({conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
       console.log("Open Picker Resonse is");
       console.log(openpickerResponse);
       $('#image').attr('src',openpickerResponse.file.url);
     });
-    
-});
+
+}, 1000);
+
+
 </script>
 </html>

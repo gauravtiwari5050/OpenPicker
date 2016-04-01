@@ -126,7 +126,8 @@
 		var left = "10%";
 		var width = "80%";
 		var height = "80%";
-		if($(window).width() < 900) {
+		var windowWidth = window.innerWidth || window.clientWidth;
+		if(windowWidth < 900) {
 			top = "0px";
 			left = "0px";
 			width = "100%";
