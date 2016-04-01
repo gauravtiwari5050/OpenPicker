@@ -1,6 +1,4 @@
-
 (function(window, document, undefined) {
-	<% include libs/jquery.js %>
 	OpenPicker = function(){
 		var self = this;
 		self.setChildEventsListener();
@@ -58,7 +56,7 @@
 	OpenPicker.prototype.sendMessageToOpenPicker = function(messageObject) {
 			var self = this;
 			if(window.openpicker.ready === true) {
-				self.iframe[0].contentWindow.postMessage(messageObject,"*");
+				document.getElementById('openpicker_iframe').contentWindow.postMessage(messageObject,"*");
 			} else {
 				console.log("OpenPicker App is not ready yet ...");
 				//set timeout of 100 millisecs and wait for the openpicker app to be ready
@@ -134,17 +132,21 @@
 			height = "100%";
 		}
 
-		self.iframe = $('<iframe>',{
-		  id:"openpicker_iframe",
-		  style:"border:none;position:fixed;top:" + top +";left:" + left +";", 
-		  width:width,
-		  height: height,
-		  src: "http://localhost:5000/app"
-		})    
-		.appendTo(window.parent.document.getElementsByTagName("body"))
-		.wrap('<div id="openpicker_container" style="display:block;padding-top:50px;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.5);text-align:center;z-index:100000"></div>').load(function(){
-			callback();
-		});
+		var html =  "";
+		html += '<div id="openpicker_container" style="display:none;padding-top:50px;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.5);text-align:center;z-index:100000">'
+			html += '<iframe id="openpicker_iframe" style="' + 
+					+ 'border:none;position:fixed;top:' + top 
+					+ ';left:' + left 
+					+ ';" width="' + width 
+					+ '" height="' + height 
+					+ '" src="http://localhost:5000/app">';
+			html += '</iframe>'
+		html += '</div>'
+
+		
+		var body = window.parent.document.getElementsByTagName("body")[0];
+		body.innerHTML += html;
+		callback();
 		
 	};
 
