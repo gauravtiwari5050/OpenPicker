@@ -83,3 +83,11 @@ html, body {
 
 }
 
+
+@media screen and (min-width: 0px) and (max-width: 767px) {
+  .onlymobile { display: block !important; }  /* show it on small screens */
+}
+
+@media screen and (min-width: 768px) {
+  .onlymobile { display: none !important; }   /* hide it elsewhere */
+}

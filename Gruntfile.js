@@ -23,7 +23,7 @@ module.exports = function (grunt) {
           'bower_components/angular-cookies/angular-cookies.min.js',
           'bower_components/angular-mocks/angular-mocks.min.js',
           'bower_components/angular-route/angular-route.min.js',
-          'bower_components/bootstrap/bootstrap.min.js',
+          'app/javascript/thirdparty/bootstrap.min.js',
           'bower_components/angular-bootstrap/angular-bootstrap.min.js',
           'bower_components/angular-ui-router/angular-ui-router.min.js',
           'bower_components/angular-sanitize/angular-sanitize.min.js',

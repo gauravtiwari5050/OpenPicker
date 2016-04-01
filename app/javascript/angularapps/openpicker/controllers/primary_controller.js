@@ -16,7 +16,7 @@ PrimaryController = function($scope,$timeout,DataAccessService,$sce,$filter,$loc
 
 	self.setupScopeMethods();
 	self.setChildEventsListener();
-	
+	self.registerCloseEventHandler();
 	self.initialize(); 
 
 };
@@ -35,7 +35,7 @@ PrimaryController.prototype.initialize = function() {
 		self.FileService.updateOptions(response.data.options);
 		self.forceUpdateView();
 
-		self.broadcastReadyStatus();
+		self.broadcastStatus('READY');
 	},
 	function(err){
 		//TODO complete this
@@ -73,11 +73,11 @@ PrimaryController.prototype.processEvent = function(ev) {
 		self.forceUpdateView();
 	}
 };
-PrimaryController.prototype.broadcastReadyStatus = function() {
+PrimaryController.prototype.broadcastStatus = function(status) {
 	var self = this;
 	var messageObject = {
 		category : "CONTROL",
-		data : "READY"
+		data : status
 	}
 	parent.postMessage(messageObject,"*");
 };
@@ -90,6 +90,14 @@ PrimaryController.prototype.forceUpdateView = function(first_argument) {
 	});
 };
 
+PrimaryController.prototype.registerCloseEventHandler = function(first_argument) {
+	var self = this;
+	$(document).on('click','#openpicker_close_button',function(ev){
+		ev.stopPropagation();
+		ev.preventDefault();
+		self.broadcastStatus('CLOSE');
+	});
+};
 
 
 app.controller('PrimaryController',PrimaryController);

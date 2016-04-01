@@ -84,7 +84,10 @@
 			if(ev.data === "READY") {
 				window.openpicker = window.openpicker || {};
 				window.openpicker.ready = true;
+			} else if (ev.data === "CLOSE"){
+				self.hideIframe();
 			}
+
 		} else if(ev.category === "RESULT"){
 			self.formatAndSendResult(ev.data);
 
