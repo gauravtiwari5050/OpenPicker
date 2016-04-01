@@ -5,6 +5,8 @@ moment = require('moment')
 exports.init = (app) ->
 	app.get '/script/v1.js' , (request,response) ->
 		response.header("Content-Type", "application/x-javascript");
-		response.render('v1.js.ejs',{events: []})
+		obj = 
+			url : request.headers.host
+		response.render('v1.js.ejs',obj)
 
 

@@ -75,7 +75,6 @@
 
 		// Listen to message from child window
 		eventer(messageEvent,function(e) {
-		  console.log('parent received message!:  ',e.data);
 		  self.processEvent(e.data);
 		},false)
 	};
@@ -131,21 +130,24 @@
 			width = "100%";
 			height = "100%";
 		}
+		var url = protocol + "//<%= url %>/app" 
 
 		var html =  "";
 		html += '<div id="openpicker_container" style="display:none;padding-top:50px;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.5);text-align:center;z-index:100000">'
-			html += '<iframe id="openpicker_iframe" style="' + 
-					+ 'border:none;position:fixed;top:' + top 
-					+ ';left:' + left 
-					+ ';" width="' + width 
-					+ '" height="' + height 
-					+ '" src="http://localhost:5000/app">';
+			html += '<iframe id="openpicker_iframe" style="'
+					+ 'border:none;position:fixed;background-color:white;top:' + top + ';left:' + left + ';"' 
+					+ ' width="' + width + '"' 
+					+ ' height="' + height + '"' 
+					+ ' src="'+ url +'">';
 			html += '</iframe>'
 		html += '</div>'
-
 		
 		var body = window.parent.document.getElementsByTagName("body")[0];
 		body.innerHTML += html;
+
+		document.getElementById('openpicker_container').onclick = function() {
+			self.hideIframe();
+		}
 		callback();
 		
 	};
