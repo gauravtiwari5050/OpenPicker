@@ -28,7 +28,7 @@ exports.init = (app) ->
 		uploadToStore = (filestore_name,callback) ->
 			console.log "Using filestore #{filestore_name}"
 
-			if !fs.existsSync("./app/filestores/#{filestore_name}.coffee")
+			if !fs.existsSync("#{__dirname}/../../filestores/#{filestore_name}.coffee")
 				console.log "../../filestores/#{filestore_name}.coffee"
 				callback(null)
 				return

@@ -10,7 +10,7 @@ appconfig = require('../config/appconfig').appconfig
 
 #web port
 port = process.env.PORT || 5000
-
+console.log "Current Directory is #{__dirname}"
 
 exports.startApis = (err, results) ->
 	console.log "Starting Apis"
@@ -18,7 +18,7 @@ exports.startApis = (err, results) ->
 		throw "Failed to start: #{err}"
 	app = express()
 		.engine('html', consolidate.handlebars)
-		.set('views', 'website/views')
+		.set('views', path.join(__dirname, '../../website/views'))
 		.set('view engine', 'ejs')
 		.use(morgan('combined'))
     	.use(bodyParser.json())
@@ -29,7 +29,7 @@ exports.startApis = (err, results) ->
 	console.log "Initializing apis at #{process.cwd()}"
 	apiSubDirectories = ["web","script"]
 	for apiSubDirectory in apiSubDirectories
-		files = fs.readdirSync "./app/api/#{apiSubDirectory}"
+		files = fs.readdirSync "#{__dirname}/../../app/api/#{apiSubDirectory}"
 		for file in files
 			api = file.split('.')
 			if ! api || ! api[0]
