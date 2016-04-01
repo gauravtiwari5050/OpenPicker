@@ -5,7 +5,7 @@ fs = require("fs")
 async = require('async')
 
 exports.init = (app) ->
-	files = fs.readdirSync "./website/views/templates"
+	files = fs.readdirSync "#{__dirname}/../../../website/views/templates"
 
 	async.eachSeries files, (template,callback) ->
 		if ! template || ! template[0]
