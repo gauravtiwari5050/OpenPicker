@@ -1,42 +1,42 @@
 {
-	"name": "openpicker",
-	"version": "0.0.1",
-	"description": "Open Picker : Open source and self hosted file picker for websites",
-	"engines": {
-		"node": "4.2.2",
-		"npm": "2.x.x"
-	},
-	"dependencies": {
-		"express": "4.10.x",
-		"ejs":"2.4.1",
-		"consolidate": "0.4.x",
-		"request": "2.51.x",
-		"underscore": "1.8.x",
-		"moment": "2.9.x",
-		"coffee-script": "1.8.x",
-		"nodemon": "1.8.x",
-		"async": "0.9.x",
-		"handlebars": "2.0.x",
-		"tmp": "0.0.x",
-		"morgan":"1.5.x",
-		"body-parser":"1.10.x",
-		"compression":"1.3.x",
-		"aws-sdk":"2.1.26",
-		"connect-multiparty":"2.0.0",
-		"fs-extra": "0.26.7",
-		"properties-reader": "0.0.15"
-	},
-	"devDependencies": {
-	    "grunt": "latest",
-	    "grunt-contrib-concat": "latest",
-	    "grunt-contrib-connect": "latest",
-	    "grunt-contrib-uglify": "latest",
-	    "grunt-contrib-watch": "latest",
-	    "grunt-bower-concat":"latest"
-  	},
-	"author": "gauravtiwari5050",
-	"repository": {
-		"type": "git",
-		"url": ""
-	}
+  "name": "openpicker",
+  "version": "0.0.2",
+  "description": "Open Picker : Open source and self hosted file picker for websites",
+  "engines": {
+    "node": "4.2.2",
+    "npm": "2.x.x"
+  },
+  "dependencies": {
+    "express": "4.10.x",
+    "ejs": "2.4.1",
+    "consolidate": "0.4.x",
+    "request": "2.51.x",
+    "underscore": "1.8.x",
+    "moment": "2.9.x",
+    "coffee-script": "1.8.x",
+    "nodemon": "1.8.x",
+    "async": "0.9.x",
+    "handlebars": "2.0.x",
+    "tmp": "0.0.x",
+    "morgan": "1.5.x",
+    "body-parser": "1.10.x",
+    "compression": "1.3.x",
+    "aws-sdk": "2.1.26",
+    "connect-multiparty": "2.0.0",
+    "fs-extra": "0.26.7",
+    "properties-reader": "0.0.15"
+  },
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-connect": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-bower-concat": "latest"
+  },
+  "author": "gauravtiwari5050",
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
 }
