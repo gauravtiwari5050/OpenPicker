@@ -1,0 +1,60 @@
+  <%include ../partials/navbar.html.ejs%>
+  <div class="container-fluid fill">
+     <div class="row fill">
+       
+       <div class="col-sm-9 col-sm-push-3 fill " >
+         <div id="drop_container" class="map" style="" >
+          <div class="table-responsive">          
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>File</th>
+                  <th>Name</th>
+                  <th>Progress</th>
+                  <th>Uploaded?</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="file in files">
+                  <td style="text-align:center"><img ngf-src="file.content" style="height:100px;max-width:100px"></td>
+                  <td>{{file.content.name}}</td>
+                  <td >
+                    <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width:{{ file.progress}}%">
+                      <span class="sr-only"></span>
+                    </div>
+                    </div>
+                  </td>
+                  <td>{{ file.status || "Queued" }}</td>
+                 
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+         
+         </div>
+
+       </div>
+       <div class="col-sm-3 col-sm-pull-9  fill toc" style="overflow:auto">
+         <%include ../partials/toc.html.ejs%>
+       </div>
+     </div>
+  </div>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-bottom" style="margin:0px">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">OpenPicker</a>
+        </div>
+
+      </div>
+    </nav>

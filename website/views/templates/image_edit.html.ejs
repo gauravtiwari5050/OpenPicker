@@ -1,0 +1,37 @@
+  <%include ../partials/navbar.html.ejs%>
+  <div class="container-fluid fill">
+     <div class="row fill">
+       
+
+       <div class="col-sm-9 col-sm-push-3 fill " style="min-height:80%;height:80%;">
+         <div style="height:100%;width:100%;min-height:100%;position:absolute">
+             <div style="position:relative;top:10%;left:10%;width:80%;height:80%;border: 3px dashed #CCC">
+                <img id="edit_image" src="" style="height:100%">
+              </div>
+              
+         </div>
+      </div>
+       <div class="col-sm-3 col-sm-pull-9  fill toc" style="overflow:auto">
+         <%include ../partials/toc.html.ejs%>
+       </div>
+     </div>
+  </div>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-bottom" style="margin:0px">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          
+          <a class="navbar-brand" href="#">OpenPicker</a>
+
+        </div>
+        <div class="pull-right" style="padding-top:10px">
+          
+         <a href="" ng-click="cropAndSave()"class="btn btn-success pull-right" >Crop and Save</a>
+         <a href="" ng-click="skip()" class="btn pull-right" >Skip</a>
+
+        </div>
+        
+
+      </div>
+    </nav>
