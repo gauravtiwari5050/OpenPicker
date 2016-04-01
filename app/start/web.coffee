@@ -12,7 +12,7 @@ appconfig = require('../config/appconfig').appconfig
 port = process.env.PORT || 5000
 
 
-startApis = (err, results) ->
+exports.startApis = (err, results) ->
 	console.log "Starting Apis"
 	if err
 		throw "Failed to start: #{err}"
@@ -44,6 +44,5 @@ startApis = (err, results) ->
 	app.listen port, ->
 		console.log("Listening on #{port}")
 		
-#starting the server
-console.log "Starting Web Server"
-startApis()
+#console.log "Starting Web Server"
+#startApis()
