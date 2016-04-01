@@ -6,6 +6,9 @@
     "node": "4.2.2",
     "npm": "2.x.x"
   },
+  "bin" : {
+    "openpicker" : "./bin/start"
+  },
   "dependencies": {
     "express": "4.10.x",
     "ejs": "2.4.1",
