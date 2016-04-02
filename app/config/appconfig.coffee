@@ -33,5 +33,20 @@ class Appconfig
 		filestores = filestores_list.split ","
 		return filestores
 
+	getFileLimits: () ->
+		key = "MIN_SIZE"
+		minSize = this.getProperty(minSize)
+		if !minSize?
+			minSize = 0
+
+		key = "MAX_SIZE"
+		maxSize = this.getProperty(maxSize)
+		if !maxSize?
+			maxSize = 5 * 1024 * 1024
+
+		obj = 
+			minSize : minSize
+			maxSize : maxSize
+
 
 exports.appconfig = new Appconfig()

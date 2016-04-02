@@ -1,6 +1,8 @@
 app.service('FileService', function() {
   var fileList = [];
   var options = {};
+  var limits = {};
+
   var channels = [];
   
   function guid() {
@@ -41,6 +43,9 @@ app.service('FileService', function() {
   var updateOptions = function(newOptions){
     options = $.extend({},options,newOptions);
   }
+  var updateLimits = function(newLimits){
+    limits = $.extend({},newLimits,newLimits);
+  }
 
   var clearFiles = function() {
     fileList = [];
@@ -55,6 +60,9 @@ app.service('FileService', function() {
   }
   var getOptions = function(){
     return options;
+  }
+  var getLimits = function(){
+    return limits;
   }
 
   var filterChannels = function(channelIds) {
@@ -78,6 +86,8 @@ app.service('FileService', function() {
     updateChannels : updateChannels,
     filterChannels : filterChannels,
     getChannels : getChannels,
+    updateLimits : updateLimits,
+    getLimits : getLimits
   };
 
 

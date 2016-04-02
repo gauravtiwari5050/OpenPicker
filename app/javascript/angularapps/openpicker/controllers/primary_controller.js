@@ -29,10 +29,12 @@ PrimaryController.prototype.setupScopeMethods = function() {
 PrimaryController.prototype.initialize = function() {
 	var self = this;
 	self.scope.channels = [];
+	
 
 	self.data_access_service.getAppDefaults().then(function(response){
 		self.FileService.updateChannels(response.data.channels);
 		self.FileService.updateOptions(response.data.options);
+		self.FileService.updateLimits(response.data.limits);
 		self.forceUpdateView();
 
 		self.broadcastStatus('READY');

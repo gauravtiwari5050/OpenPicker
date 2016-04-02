@@ -28,6 +28,8 @@ exports.init = (app) ->
 			conversions: []
 
 		responseObject.options = options
+		responseObject.limits = appconfig.getFileLimits()
+			
 
 
 		util.sendJSONPResponse request,response,responseObject

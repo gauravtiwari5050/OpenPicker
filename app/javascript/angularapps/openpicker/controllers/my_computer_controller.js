@@ -22,17 +22,29 @@ MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$
 
 MyComputerController.prototype.setupScopeMethods = function() {
 	var self = this;
-	self.scope.uploadFiles = function (files) {
-		console.log("Files are");
-		console.log(files);
+	self.scope.uploadFiles = function () {
+		self.FileService.clearFiles();
+
+		var files = self.scope.files
+		self.scope.limitExceeded = false;
 		for(var i = 0;i<files.length;i++){
-			self.FileService.addFile(files[i]);
+			if(files[i].size > self.scope.limits.maxSize || files[i].size < self.scope.limits.minSize){
+				self.scope.limitExceeded = true;
+				self.scope.files = [];
+				break;
+			} else {
+				self.FileService.addFile(files[i]);
+			}
 		}
-		if(self.scope.options.conversions.length > 0 && files.length === 1) {
-			self.location.path('/edit/image');
-		} else {
-			self.location.path('/upload');
-		}
+
+		if(self.scope.limitExceeded === false) {
+			if(self.scope.options.conversions.length > 0 && files.length === 1) {
+				self.location.path('/edit/image');
+			} else {
+				self.location.path('/upload');
+			}
+		}	
+		self.forceUpdateView();
       
     }
 };
@@ -41,8 +53,8 @@ MyComputerController.prototype.initialize = function() {
 	var self = this;
 	self.scope.channels = self.FileService.getChannels();
 	self.scope.options = self.FileService.getOptions();
-	console.log("Options are");
-	console.log(self.scope.options);
+	self.scope.limits = self.FileService.getLimits();
+	self.scope.files = [];
 	self.forceUpdateView();
 };
 
