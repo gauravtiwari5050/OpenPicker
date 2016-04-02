@@ -18,6 +18,27 @@ UploadController = function($scope,$timeout,DataAccessService,$sce,$filter,$loca
 
 UploadController.prototype.setupScopeMethods = function() {
 	var self = this;
+	self.scope.getFileIcon = function(file){
+		if(file.content.type.match(/.(?:jpe?g|png|gif)$/i)){
+			return "file-image-o";
+		} else if(file.content.type.match(/video\/*/i)) {
+			return "file-video-o";
+		} else if(file.content.type.match(/audio\/*/i)) {
+			return "file-audio-o";
+		} else if(file.content.type.match(/xls*/i)) {
+			return "file-excel-o";
+		} else if(file.content.type.match(/zip|7z/i)) {
+			return "file-zip-o";
+		} else if(file.content.type.match(/doc/i)) {
+			return "file-word-o";
+		} else if(file.content.type.match(/ppt/i)) {
+			return "file-powerpoint-o";
+		} else if(file.content.type.match(/pdf/i)) {
+			return "file-pdf-o";
+		} else {
+			return "file-o"
+		}
+	}
 };
 
 UploadController.prototype.initialize = function() {

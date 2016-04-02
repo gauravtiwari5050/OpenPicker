@@ -40,6 +40,7 @@ ImageEditController.prototype.setupScopeMethods = function() {
 
 	self.scope.skip = function() {
 		self.location.path('/upload');
+		self.forceUpdateView();
 	}
 	
 };
@@ -58,13 +59,17 @@ ImageEditController.prototype.initialize = function() {
 	self.forceUpdateView();
 	
 	self.scope.file = self.FileService.getFiles()[0];
-
-	self.blobToDataURL(self.scope.file.content,function(result){
-		$('#edit_image').attr('src',result);
-		self.timeout(function() {
-			self.loadCropper();
-		});
-	})
+	if(self.scope.file.content.type.match(/.(?:jpe?g|png)/) === null){
+		self.location.path('/upload');
+		self.forceUpdateView();
+	} else {
+		self.blobToDataURL(self.scope.file.content,function(result){
+			$('#edit_image').attr('src',result);
+			self.timeout(function() {
+				self.loadCropper();
+			});
+		})
+	}
 	
    
 };
