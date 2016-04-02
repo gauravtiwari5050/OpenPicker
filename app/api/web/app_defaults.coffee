@@ -21,7 +21,7 @@ exports.init = (app) ->
 			channels: channels
 
 		options = 
-			mimetype:"*/*",
+			mimetypes:"image/*",
 			multiple: false,
 			cropRatio: 2/1,
 			channels: ['MY_COMPUTER','URL'],

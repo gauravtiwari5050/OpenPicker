@@ -15,7 +15,8 @@
                           Drag file on this screen
                         </div>
                         <div>
-                          <button  ngf-multiple="options.multiple" ngf-select="uploadFiles($files)" class="btn btn-large btn-info">or Upload Files</button>
+                          <button  ngf-multiple="options.multiple" ngf-pattern="options.mimetypes"
+    ngf-accept="options.mimetypes" ngf-select="uploadFiles($files)" class="btn btn-large btn-info">or Upload Files</button>
                         </div>
                     </div>
                   </div>
