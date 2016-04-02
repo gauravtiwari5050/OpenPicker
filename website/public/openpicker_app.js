@@ -5534,7 +5534,8 @@ UploadController.prototype.uploadFiles = function() {
 		function(file,callback) {
 			self.Upload.upload({
             url: '/upload',
-            data: {file: file.content}
+            data: {file: file.content},
+            headers: {'x-csrf-token':$('meta[name=csrf]').attr("content")}
         }).then(function (resp) {
         	file.status ="Uploaded";
         	self.forceUpdateView();

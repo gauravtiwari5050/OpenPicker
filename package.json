@@ -27,7 +27,9 @@
     "aws-sdk": "2.1.26",
     "connect-multiparty": "2.0.0",
     "fs-extra": "0.26.7",
-    "properties-reader": "0.0.15"
+    "properties-reader": "0.0.15",
+    "cookie-parser" : "1.4.1",
+    "csurf": "1.8.3"
   },
   "devDependencies": {
     "grunt": "latest",

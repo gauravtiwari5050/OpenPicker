@@ -6,6 +6,7 @@ morgan = require('morgan')
 bodyParser = require('body-parser')
 compression = require('compression')
 fs = require('fs')
+cookieParser = require('cookie-parser')
 appconfig = require('../config/appconfig').appconfig
 
 #web port
@@ -24,6 +25,8 @@ exports.startApis = (err, results) ->
     	.use(bodyParser.json())
     	.use(bodyParser.urlencoded({ extended: false }))
 		.use(compression())
+		.use(cookieParser())
+
 
 	#Api initialization
 	console.log "Initializing apis at #{process.cwd()}"

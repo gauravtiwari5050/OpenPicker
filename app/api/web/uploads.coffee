@@ -3,6 +3,7 @@ appconfig = require('../../config/appconfig').appconfig
 moment = require('moment')
 multiparty = require('connect-multiparty')
 fs = require('fs')
+csrf = require('csurf')
 tmpDir = "#{process.cwd()}/.tmp"
 if !fs.existsSync(tmpDir)
 	fs.mkdirSync(tmpDir)
@@ -11,8 +12,9 @@ multipartyMiddleware = multiparty({uploadDir: tmpDir })
 async = require('async')
 filestores = {}
 
+
 exports.init = (app) ->
-	app.post '/upload/' ,multipartyMiddleware,(request,response) ->
+	app.post '/upload/' ,csrf({ cookie: true }), multipartyMiddleware,(request,response) ->
 
 		
 		file = request.files.file
