@@ -9,13 +9,9 @@ exports.init = (app) ->
 			unique_id : "MY_COMPUTER"
 			name: "My Computer"
 			fa_icon: "desktop"
-		link =
-			unique_id : "URL"
-			name: "Direct Link To File"
-			fa_icon: "link"
 
 		channels.push(my_computer)
-		channels.push(link)
+
 		
 		responseObject =
 			channels: channels
@@ -24,7 +20,7 @@ exports.init = (app) ->
 			mimetypes:"image/*",
 			multiple: false,
 			cropRatio: 2/1,
-			channels: ['MY_COMPUTER','URL'],
+			channels: ['MY_COMPUTER'],
 			conversions: []
 
 		responseObject.options = options
