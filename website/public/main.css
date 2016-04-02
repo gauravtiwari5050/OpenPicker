@@ -1,5 +1,4 @@
-/* Sticky footer styles
--------------------------------------------------- */
+
 html {
   position: relative;
   min-height: 100%;
@@ -24,9 +23,7 @@ body {
   border-right: 1px solid #e7e7e7;
 }
 
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
+
 
 
 
@@ -72,12 +69,12 @@ html, body {
     text-align: center;
 }
 
-.my_container {
+.center_container {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
 }
-.my_content {
+.center_content {
     display: inline-block;
 
 
