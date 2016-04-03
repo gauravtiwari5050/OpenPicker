@@ -106,6 +106,26 @@ app.directive('centered',function(){
         '</div>'
       ].join('') 
     }
-  });
+});
+
+app.directive('routeChangeSpinner', function ($rootScope, $timeout) {
+        return {
+            restrict: 'A',
+            link: function (scope, elem, attrs) {
+              $rootScope.$on('$locationChangeStart', function(event) {
+                var html = '<div class="container-fluid">'
+                html    +=  '<div class="row">'
+                html    +=    '<div class="angular-center-container">'
+                html    +=      '<div class="angular-centered">'
+                html    +=        '<img src="/ajax-loader.gif"/>'
+                html    +=      '</div>'
+                html    +=    '</div>'
+                html    +=  '</div>'
+                html    += '</div>'
+                $('body').html(html);
+              });
+            }
+        };
+    });
 
 
