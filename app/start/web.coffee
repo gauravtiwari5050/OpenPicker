@@ -10,7 +10,7 @@ cookieParser = require('cookie-parser')
 appconfig = require('../config/appconfig').appconfig
 
 #web port
-port = process.env.PORT || 5000
+port = process.env.PORT || appconfig.getPort()
 console.log "Current Directory is #{__dirname}"
 
 exports.startApis = (err, results) ->

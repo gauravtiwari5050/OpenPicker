@@ -35,18 +35,28 @@ class Appconfig
 
 	getFileLimits: () ->
 		key = "MIN_SIZE"
-		minSize = this.getProperty(minSize)
+		minSize = this.getProperty(key)
 		if !minSize?
 			minSize = 0
 
 		key = "MAX_SIZE"
-		maxSize = this.getProperty(maxSize)
+		maxSize = this.getProperty(key)
 		if !maxSize?
 			maxSize = 5 * 1024 * 1024
 
 		obj = 
 			minSize : minSize
 			maxSize : maxSize
+
+		return obj
+
+	getPort: ()->
+		key = 'PORT'
+		port = this.getProperty(key)
+		if !port?
+			port = 5050
+		return port
+		
 
 
 exports.appconfig = new Appconfig()
