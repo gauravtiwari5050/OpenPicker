@@ -20,7 +20,7 @@
 </script>  
 <script type="text/javascript">
 
-$(document).on('click','#button',function(){
+$('#button').click(function(){
     
     window.openpicker.getFiles({mimetypes: "image/*",conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
       console.log("Open Picker Resonse is");
