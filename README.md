@@ -143,5 +143,6 @@ MIT
    [@tjholowaychuk]: <http://twitter.com/tjholowaychuk>
    [express]: <http://expressjs.com>
    [AngularJS]: <http://angularjs.org>
+   [@andrewrk]: <https://github.com/andrewrk>
 
 
