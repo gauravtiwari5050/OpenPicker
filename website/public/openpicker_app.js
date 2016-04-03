@@ -5185,6 +5185,33 @@ app.directive('centered',function(){
 
 
 
+app.factory('LogService',function($http){
+    var LogService = function(){
+      var self = this;
+      try {
+      var search = window.parent.location.search;
+      if(search === null || search === undefined) {
+        search = "";
+      }
+      if(search.match(/openpicker_debug/)){
+        self.display_logs = true;
+      }
+      } catch(e){
+        self.display_logs = false;
+      }
+     
+    }
+    
+    LogService.prototype.log = function(obj) {
+      var self = this;
+      if(self.display_logs === true){
+        console.log(obj);
+      }
+    };
+    
+    return LogService;
+});
+
 app.factory('DataAccessService',function($http){
     var DataAccessService = function(){
       var self = this;
@@ -5235,7 +5262,6 @@ app.service('OptionsService', function() {
   };
 
   var updateFileBlob = function(unique_id,newObj){
-    console.log("Updating file " + unique_id);
     var fileObj = _.find(fileList,function(file){
       return file.unique_id === unique_id;
     });
@@ -5304,7 +5330,7 @@ app.service('OptionsService', function() {
 
 });
 
-MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
+MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService,LogService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -5314,6 +5340,7 @@ MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$
 	self.location = $location;
 	self.Upload = Upload;
 	self.OptionsService = OptionsService;
+	self.logger = new LogService();
  
 	
 	self.data_access_service = new DataAccessService();
@@ -5352,7 +5379,7 @@ MyComputerController.prototype.setupScopeMethods = function() {
 		
 		if(self.OptionsService.getFiles().length === 0){
 
-			console.log(self.OptionsService.getFiles());
+			self.logger.log(self.OptionsService.getFiles());
 			self.scope.uploadError = true;
 		}
 
@@ -5393,7 +5420,7 @@ app.controller('MyComputerController',MyComputerController);
 
 
 
-ImageEditController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
+ImageEditController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService,LogService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -5403,6 +5430,7 @@ ImageEditController = function($scope,$timeout,DataAccessService,$sce,$filter,$l
 	self.location = $location;
 	self.Upload = Upload;
 	self.OptionsService = OptionsService;
+	self.logger = new LogService();
  
 	
 	self.data_access_service = new DataAccessService();
@@ -5421,7 +5449,7 @@ ImageEditController.prototype.setupScopeMethods = function() {
 	var self = this;
 	self.scope.cropAndSave = function(){
 		$('#edit_image').cropper('getCroppedCanvas').toBlob(function (blob) {
-		  console.log(blob);
+		  self.logger.log(blob);
 			var urlCreator = window.URL || window.webkitURL; 
 			var imageUrl = urlCreator.createObjectURL(blob); 
 
@@ -5489,7 +5517,7 @@ app.controller('ImageEditController',ImageEditController);
 
 
 
-UploadController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
+UploadController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService,LogService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -5499,6 +5527,7 @@ UploadController = function($scope,$timeout,DataAccessService,$sce,$filter,$loca
 	self.location = $location;
 	self.Upload = Upload;
 	self.OptionsService = OptionsService;
+	self.logger = new LogService();
 
 	self.setupScopeMethods();
 	
@@ -5554,13 +5583,13 @@ UploadController.prototype.uploadFiles = function() {
         }).then(function (resp) {
         	file.status ="Uploaded";
         	self.forceUpdateView();
-            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
-            console.log(resp.data);
+            self.logger.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
+            self.logger.log(resp.data);
             file.server_response = resp.data;
             file.server_response.url = window.location.origin +  "/" + file.server_response.path;
             callback(null);
         }, function (resp) {
-            console.log('Error status: ' + resp.status);
+            self.logger.log('Error status: ' + resp.status);
             file.status= "Errored";
             self.forceUpdateView();
             callback(null);
@@ -5569,11 +5598,11 @@ UploadController.prototype.uploadFiles = function() {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             file.progress = progressPercentage;
             self.forceUpdateView();
-            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            self.logger.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
         });
 		},
 		function(){
-			console.log("Done Uploading all the files");
+			self.logger.log("Done Uploading all the files");
 			var results = [];
 			for(var i = 0;i< self.scope.files.length ; i++){
 				results.push(self.scope.files[i].server_response);
@@ -5606,7 +5635,7 @@ app.controller('UploadController',UploadController);
 
 
 
-PrimaryController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
+PrimaryController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService,LogService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -5616,6 +5645,7 @@ PrimaryController = function($scope,$timeout,DataAccessService,$sce,$filter,$loc
 	self.location = $location;
 	self.Upload = Upload;
 	self.OptionsService = OptionsService;
+	self.logger = new LogService();
  
 	
 	self.data_access_service = new DataAccessService();
@@ -5647,8 +5677,9 @@ PrimaryController.prototype.initialize = function() {
 		self.broadcastStatus('READY');
 	},
 	function(err){
-		//TODO complete this
-		console.log("Something went wrong");
+		//TODO
+		self.logger.log("Something went wrong");
+		self.logger.log(err);
 	});
 
 	
@@ -5669,8 +5700,8 @@ PrimaryController.prototype.setChildEventsListener = function() {
 };
 PrimaryController.prototype.processEvent = function(ev) {
 	var self = this;
-	console.log("Child Received Event");
-	console.log(ev);
+	self.logger.log("Child Received Event");
+	self.logger.log(ev);
 	if(ev.category === "INITIALIZE") {
 		self.OptionsService.clearFiles();
 		self.OptionsService.updateOptions(ev.data.options);

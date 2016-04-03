@@ -25,7 +25,6 @@ app.service('OptionsService', function() {
   };
 
   var updateFileBlob = function(unique_id,newObj){
-    console.log("Updating file " + unique_id);
     var fileObj = _.find(fileList,function(file){
       return file.unique_id === unique_id;
     });

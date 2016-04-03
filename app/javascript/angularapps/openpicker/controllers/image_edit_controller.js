@@ -1,5 +1,5 @@
 
-ImageEditController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
+ImageEditController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService,LogService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -9,6 +9,7 @@ ImageEditController = function($scope,$timeout,DataAccessService,$sce,$filter,$l
 	self.location = $location;
 	self.Upload = Upload;
 	self.OptionsService = OptionsService;
+	self.logger = new LogService();
  
 	
 	self.data_access_service = new DataAccessService();
@@ -27,7 +28,7 @@ ImageEditController.prototype.setupScopeMethods = function() {
 	var self = this;
 	self.scope.cropAndSave = function(){
 		$('#edit_image').cropper('getCroppedCanvas').toBlob(function (blob) {
-		  console.log(blob);
+		  self.logger.log(blob);
 			var urlCreator = window.URL || window.webkitURL; 
 			var imageUrl = urlCreator.createObjectURL(blob); 
 

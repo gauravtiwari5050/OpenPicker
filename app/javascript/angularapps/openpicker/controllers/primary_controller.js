@@ -1,5 +1,5 @@
 
-PrimaryController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
+PrimaryController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService,LogService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -9,6 +9,7 @@ PrimaryController = function($scope,$timeout,DataAccessService,$sce,$filter,$loc
 	self.location = $location;
 	self.Upload = Upload;
 	self.OptionsService = OptionsService;
+	self.logger = new LogService();
  
 	
 	self.data_access_service = new DataAccessService();
@@ -40,8 +41,9 @@ PrimaryController.prototype.initialize = function() {
 		self.broadcastStatus('READY');
 	},
 	function(err){
-		//TODO complete this
-		console.log("Something went wrong");
+		//TODO
+		self.logger.log("Something went wrong");
+		self.logger.log(err);
 	});
 
 	
@@ -62,8 +64,8 @@ PrimaryController.prototype.setChildEventsListener = function() {
 };
 PrimaryController.prototype.processEvent = function(ev) {
 	var self = this;
-	console.log("Child Received Event");
-	console.log(ev);
+	self.logger.log("Child Received Event");
+	self.logger.log(ev);
 	if(ev.category === "INITIALIZE") {
 		self.OptionsService.clearFiles();
 		self.OptionsService.updateOptions(ev.data.options);

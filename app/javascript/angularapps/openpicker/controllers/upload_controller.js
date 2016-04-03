@@ -1,5 +1,5 @@
 
-UploadController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
+UploadController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService,LogService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -9,6 +9,7 @@ UploadController = function($scope,$timeout,DataAccessService,$sce,$filter,$loca
 	self.location = $location;
 	self.Upload = Upload;
 	self.OptionsService = OptionsService;
+	self.logger = new LogService();
 
 	self.setupScopeMethods();
 	
@@ -64,13 +65,13 @@ UploadController.prototype.uploadFiles = function() {
         }).then(function (resp) {
         	file.status ="Uploaded";
         	self.forceUpdateView();
-            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
-            console.log(resp.data);
+            self.logger.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
+            self.logger.log(resp.data);
             file.server_response = resp.data;
             file.server_response.url = window.location.origin +  "/" + file.server_response.path;
             callback(null);
         }, function (resp) {
-            console.log('Error status: ' + resp.status);
+            self.logger.log('Error status: ' + resp.status);
             file.status= "Errored";
             self.forceUpdateView();
             callback(null);
@@ -79,11 +80,11 @@ UploadController.prototype.uploadFiles = function() {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             file.progress = progressPercentage;
             self.forceUpdateView();
-            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            self.logger.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
         });
 		},
 		function(){
-			console.log("Done Uploading all the files");
+			self.logger.log("Done Uploading all the files");
 			var results = [];
 			for(var i = 0;i< self.scope.files.length ; i++){
 				results.push(self.scope.files[i].server_response);

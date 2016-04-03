@@ -1,5 +1,5 @@
 
-MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
+MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService,LogService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -9,6 +9,7 @@ MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$
 	self.location = $location;
 	self.Upload = Upload;
 	self.OptionsService = OptionsService;
+	self.logger = new LogService();
  
 	
 	self.data_access_service = new DataAccessService();
@@ -47,7 +48,7 @@ MyComputerController.prototype.setupScopeMethods = function() {
 		
 		if(self.OptionsService.getFiles().length === 0){
 
-			console.log(self.OptionsService.getFiles());
+			self.logger.log(self.OptionsService.getFiles());
 			self.scope.uploadError = true;
 		}
 
