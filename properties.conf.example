@@ -1,0 +1,9 @@
+AWS_ACCESS_KEY_ID = your_access_key_id_here
+AWS_SECRET_ACCESS_KEY = your_secret_access_key_here
+AWS_REGION = your_aws_region_here
+S3_BUCKET = your_s3_bucket_name_here
+FILESTORES = s3,disk
+PORT = 5050
+MIN_SIZE = 1
+MAX_SIZE = 3145728
+UPLOAD_DIRECTORY= your_uploads_directoy_here
