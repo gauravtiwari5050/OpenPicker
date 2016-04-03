@@ -4,16 +4,20 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
 
     <title>OpenPicker - Installation and Usage </title>
 
      <!-- Bootstrap core CSS -->
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <script type="text/javascript">
+      (function(window,document) {
+        window.openpicker = {};
+        var op = document.createElement('script'); op.type = 'text/javascript'; op.async = true;
+        op.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + '<%=host%>/script/v1.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(op, s);
+      })(window,document);
+    </script>  
   
 
 
@@ -32,7 +36,7 @@
 
       <div class="row">
 
-        <div class="col-sm-8 blog-main">
+        <div class="col-sm-7 blog-main">
 
           <div class="blog-post">
             <h2 class="blog-post-title">Add javascript to your site</h2>
@@ -51,7 +55,7 @@
 
           <div class="blog-post">
             <h2 class="blog-post-title">Use OpenPicker</h2>
-            <textarea class="form-control" rows="10" readonly>
+            <textarea class="form-control" rows="6" readonly>
     window.openpicker.getFiles({mimetypes: &quot;image/*&quot;,conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
       console.log(openpickerResponse);
       $('#image').attr('src',openpickerResponse.file.url);
@@ -62,12 +66,13 @@
 
         </div><!-- /.blog-main -->
 
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+        <div class="col-sm-5 ">
           <div class="sidebar-module sidebar-module-inset" style="text-align:center">
             <h4>Try Uploading a File</h4>
             <div> 
-              <button class="btn btn-success"> Upload An Image </button>
+              <button id="button" class="btn btn-success"> Upload An Image </button>
             </div>
+            <img id="image"src="" style="width:100%;height:auto;padding-top:20px"></img>
           </div>
         </div><!-- /.blog-sidebar -->
 
@@ -84,6 +89,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $('#button').click(function(){
+          
+          window.openpicker.getFiles({mimetypes: "image/*",conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
+            console.log("Open Picker Resonse is");
+            console.log(openpickerResponse);
+            $('#image').attr('src',openpickerResponse.file.url);
+          });
+          
+      });
+    </script>
+
     
   </body>
 </html>
