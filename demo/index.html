@@ -11,15 +11,13 @@
 </body>
 <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
 <script type="text/javascript">
-  // <snip>
-  
   (function(window,document) {
-  	window.openpicker = {};
+    window.openpicker = {};
     var op = document.createElement('script'); op.type = 'text/javascript'; op.async = true;
     op.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'localhost:5000/script/v1.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(op, s);
   })(window,document);
-</script>
+</script>  
 <script type="text/javascript">
 
 $(document).on('click','#button',function(){

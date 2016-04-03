@@ -8,4 +8,7 @@ exports.init = (app) ->
 		console.log request.csrfToken()
 		response.render('app.html.ejs',{csrf: request.csrfToken()})
 
+	app.get '/usage', (request,response) ->
+		response.render('usage.html.ejs',{host: request.headers.host})
+
 
