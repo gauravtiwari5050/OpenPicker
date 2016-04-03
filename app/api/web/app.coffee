@@ -11,4 +11,7 @@ exports.init = (app) ->
 	app.get '/usage', (request,response) ->
 		response.render('usage.html.ejs',{host: request.headers.host})
 
+	app.get '/' , (request,response) ->
+		response.redirect(301,'/usage')
+
 
