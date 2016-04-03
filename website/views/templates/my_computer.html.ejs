@@ -19,8 +19,8 @@
                           <button  ngf-multiple="options.multiple" ngf-pattern="options.mimetypes"
     ngf-accept="options.mimetypes" ng-model="files" ngf-select="uploadFiles()" class="btn btn-large btn-info">or Upload File<span ng-if="options.multiple">s</span></button>
                         </div>
-                        <div ng-if="limitExceeded" style="text-align:center;margin-top:20px" class="alert alert-danger">
-                          Some of the files you selected exceed file limits. Please try again.
+                        <div ng-if="uploadError == true" style="text-align:center;margin-top:20px" class="alert alert-danger">
+                          <p>Some of the files you selected exceed file limits </p><p>or are not allowed to be uploaded. </p> <p>Please try again.</p>
                         </div>
                     </div>
                   </div>

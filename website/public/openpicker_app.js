@@ -5330,25 +5330,41 @@ MyComputerController.prototype.setupScopeMethods = function() {
 	self.scope.uploadFiles = function () {
 		self.FileService.clearFiles();
 
-		var files = self.scope.files
-		self.scope.limitExceeded = false;
-		for(var i = 0;i<files.length;i++){
-			if(files[i].size > self.scope.limits.maxSize || files[i].size < self.scope.limits.minSize){
-				self.scope.limitExceeded = true;
-				self.scope.files = [];
-				break;
-			} else {
-				self.FileService.addFile(files[i]);
+		var files = self.scope.files;
+
+		self.scope.uploadError = false;
+		if(files !== null && files !== undefined) {
+			if( Object.prototype.toString.call( files ) === '[object Array]' ) {
+	    		alert( 'Array!' );
 			}
+			files = [files];
+			for(var i = 0;i<files.length;i++){
+				if(files[i].size > self.scope.limits.maxSize || files[i].size < self.scope.limits.minSize){
+					self.scope.uploadError = true;
+					self.scope.files = [];
+					break;
+				} else {
+					self.FileService.addFile(files[i]);
+				}
+			}
+		} else {
+			self.scope.uploadError = true;
+		}
+		
+		if(self.FileService.getFiles().length === 0){
+
+			console.log(self.FileService.getFiles());
+			self.scope.uploadError = true;
 		}
 
-		if(self.scope.limitExceeded === false) {
+		if(self.scope.uploadError === false) {
 			if(self.scope.options.conversions.length > 0 && files.length === 1) {
 				self.location.path('/edit/image');
 			} else {
 				self.location.path('/upload');
 			}
-		}	
+		}
+		self.scope.files = [];
 		self.forceUpdateView();
       
     }
