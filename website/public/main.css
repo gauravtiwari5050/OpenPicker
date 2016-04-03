@@ -23,12 +23,6 @@ body {
   border-right: 1px solid #e7e7e7;
 }
 
-
-
-
-
-
-
 .map {
     width: 100%;
     height: 100%;
@@ -79,7 +73,9 @@ html, body {
 
 
 }
-
+.dragover {
+  background-color: #EEE; 
+}
 
 @media screen and (min-width: 0px) and (max-width: 767px) {
   .onlymobile { display: block !important; }  /* show it on small screens */

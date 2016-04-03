@@ -92,7 +92,7 @@
     <script type="text/javascript">
       $('#button').click(function(){
           
-          window.openpicker.getFiles({mimetypes: "image/*",conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
+          window.openpicker.getFile({mimetypes: "image/*",conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
             console.log("Open Picker Resonse is");
             console.log(openpickerResponse);
             $('#image').attr('src',openpickerResponse.file.url);
