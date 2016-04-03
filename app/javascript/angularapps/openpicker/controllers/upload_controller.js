@@ -1,5 +1,5 @@
 
-UploadController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,FileService) {
+UploadController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -8,7 +8,7 @@ UploadController = function($scope,$timeout,DataAccessService,$sce,$filter,$loca
 	self.sce = $sce;
 	self.location = $location;
 	self.Upload = Upload;
-	self.FileService = FileService;
+	self.OptionsService = OptionsService;
 
 	self.setupScopeMethods();
 	
@@ -44,9 +44,9 @@ UploadController.prototype.setupScopeMethods = function() {
 UploadController.prototype.initialize = function() {
 	var self = this;
 	var self = this;
-	self.scope.channels = self.FileService.getChannels();
-	self.scope.options = self.FileService.getOptions();
-	self.scope.files = self.FileService.getFiles();
+	self.scope.channels = self.OptionsService.getChannels();
+	self.scope.options = self.OptionsService.getOptions();
+	self.scope.files = self.OptionsService.getFiles();
 	self.uploadFiles();
 	self.forceUpdateView();
    

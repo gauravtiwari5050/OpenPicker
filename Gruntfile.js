@@ -35,7 +35,7 @@ module.exports = function (grunt) {
           'app/javascript/angularapps/openpicker/app_routes.js',
           'app/javascript/angularapps/common/directives.js',
           'app/javascript/angularapps/common/factories/data_access_service.js',
-          'app/javascript/angularapps/openpicker/services/file_service.js',
+          'app/javascript/angularapps/openpicker/services/options_service.js',
           'app/javascript/angularapps/openpicker/controllers/my_computer_controller.js',
           'app/javascript/angularapps/openpicker/controllers/image_edit_controller.js',
           'app/javascript/angularapps/openpicker/controllers/upload_controller.js',

@@ -1,4 +1,4 @@
-app.service('FileService', function() {
+app.service('OptionsService', function() {
   var fileList = [];
   var options = {};
   var limits = {};

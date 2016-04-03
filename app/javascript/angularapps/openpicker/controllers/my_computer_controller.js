@@ -1,5 +1,5 @@
 
-MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,FileService) {
+MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -8,7 +8,7 @@ MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$
 	self.sce = $sce;
 	self.location = $location;
 	self.Upload = Upload;
-	self.FileService = FileService;
+	self.OptionsService = OptionsService;
  
 	
 	self.data_access_service = new DataAccessService();
@@ -23,7 +23,7 @@ MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$
 MyComputerController.prototype.setupScopeMethods = function() {
 	var self = this;
 	self.scope.uploadFiles = function () {
-		self.FileService.clearFiles();
+		self.OptionsService.clearFiles();
 
 		var files = self.scope.files;
 
@@ -38,16 +38,16 @@ MyComputerController.prototype.setupScopeMethods = function() {
 					self.scope.files = [];
 					break;
 				} else {
-					self.FileService.addFile(files[i]);
+					self.OptionsService.addFile(files[i]);
 				}
 			}
 		} else {
 			self.scope.uploadError = true;
 		}
 		
-		if(self.FileService.getFiles().length === 0){
+		if(self.OptionsService.getFiles().length === 0){
 
-			console.log(self.FileService.getFiles());
+			console.log(self.OptionsService.getFiles());
 			self.scope.uploadError = true;
 		}
 
@@ -66,9 +66,9 @@ MyComputerController.prototype.setupScopeMethods = function() {
 
 MyComputerController.prototype.initialize = function() {
 	var self = this;
-	self.scope.channels = self.FileService.getChannels();
-	self.scope.options = self.FileService.getOptions();
-	self.scope.limits = self.FileService.getLimits();
+	self.scope.channels = self.OptionsService.getChannels();
+	self.scope.options = self.OptionsService.getOptions();
+	self.scope.limits = self.OptionsService.getLimits();
 	self.scope.files = [];
 	self.forceUpdateView();
 };

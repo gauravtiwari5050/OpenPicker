@@ -5208,103 +5208,8 @@ app.factory('DataAccessService',function($http){
     return DataAccessService;
 });
 
-app.service('FileService', function() {
-  var fileList = [];
-  var options = {};
-  var limits = {};
 
-  var channels = [];
-  
-  function guid() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
-  }
-
-  var addFile = function(newObj) {
-      var fileObj = {
-        unique_id: guid(),
-        content: newObj
-      }
-
-      fileList.push(fileObj);
-  };
-
-  var updateFileBlob = function(unique_id,newObj){
-    console.log("Updating file " + unique_id);
-    var fileObj = _.find(fileList,function(file){
-      return file.unique_id === unique_id;
-    });
-    if(fileObj !== null && fileObj !== undefined){
-      var name = fileObj.content.name;
-      fileObj.content = newObj;
-      fileObj.content.name = name;
-    }
-  }
-
-  var getFiles = function(){
-      return fileList;
-  };
-
-  var updateOptions = function(newOptions){
-    options = $.extend({},options,newOptions);
-  }
-  var updateLimits = function(newLimits){
-    limits = $.extend({},newLimits,newLimits);
-  }
-
-  var clearFiles = function() {
-    fileList = [];
-  }
-
-  var updateChannels = function(newChannels){
-    channels = newChannels;
-  }
-
-  var getChannels = function(){
-    return channels;
-  }
-  var getOptions = function(){
-    return options;
-  }
-  var getLimits = function(){
-    return limits;
-  }
-
-  var filterChannels = function(channelIds) {
-    channels = _.filter(function(channel){
-      return _.find(channelIds,function(channelId){
-        return channelId === channel.unique_id;
-      });
-
-    });
-  }
-
-
-
-  return {
-    addFile: addFile,
-    getFiles: getFiles,
-    clearFiles : clearFiles,
-    updateFileBlob: updateFileBlob,
-    updateOptions : updateOptions,
-    getOptions : getOptions,
-    updateChannels : updateChannels,
-    filterChannels : filterChannels,
-    getChannels : getChannels,
-    updateLimits : updateLimits,
-    getLimits : getLimits
-  };
-
-
-
-});
-
-MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,FileService) {
+MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -5313,7 +5218,7 @@ MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$
 	self.sce = $sce;
 	self.location = $location;
 	self.Upload = Upload;
-	self.FileService = FileService;
+	self.OptionsService = OptionsService;
  
 	
 	self.data_access_service = new DataAccessService();
@@ -5328,7 +5233,7 @@ MyComputerController = function($scope,$timeout,DataAccessService,$sce,$filter,$
 MyComputerController.prototype.setupScopeMethods = function() {
 	var self = this;
 	self.scope.uploadFiles = function () {
-		self.FileService.clearFiles();
+		self.OptionsService.clearFiles();
 
 		var files = self.scope.files;
 
@@ -5343,16 +5248,16 @@ MyComputerController.prototype.setupScopeMethods = function() {
 					self.scope.files = [];
 					break;
 				} else {
-					self.FileService.addFile(files[i]);
+					self.OptionsService.addFile(files[i]);
 				}
 			}
 		} else {
 			self.scope.uploadError = true;
 		}
 		
-		if(self.FileService.getFiles().length === 0){
+		if(self.OptionsService.getFiles().length === 0){
 
-			console.log(self.FileService.getFiles());
+			console.log(self.OptionsService.getFiles());
 			self.scope.uploadError = true;
 		}
 
@@ -5371,9 +5276,9 @@ MyComputerController.prototype.setupScopeMethods = function() {
 
 MyComputerController.prototype.initialize = function() {
 	var self = this;
-	self.scope.channels = self.FileService.getChannels();
-	self.scope.options = self.FileService.getOptions();
-	self.scope.limits = self.FileService.getLimits();
+	self.scope.channels = self.OptionsService.getChannels();
+	self.scope.options = self.OptionsService.getOptions();
+	self.scope.limits = self.OptionsService.getLimits();
 	self.scope.files = [];
 	self.forceUpdateView();
 };
@@ -5393,7 +5298,7 @@ app.controller('MyComputerController',MyComputerController);
 
 
 
-ImageEditController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,FileService) {
+ImageEditController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -5402,7 +5307,7 @@ ImageEditController = function($scope,$timeout,DataAccessService,$sce,$filter,$l
 	self.sce = $sce;
 	self.location = $location;
 	self.Upload = Upload;
-	self.FileService = FileService;
+	self.OptionsService = OptionsService;
  
 	
 	self.data_access_service = new DataAccessService();
@@ -5425,7 +5330,7 @@ ImageEditController.prototype.setupScopeMethods = function() {
 			var urlCreator = window.URL || window.webkitURL; 
 			var imageUrl = urlCreator.createObjectURL(blob); 
 
-			self.FileService.updateFileBlob(self.scope.file.unique_id,blob);
+			self.OptionsService.updateFileBlob(self.scope.file.unique_id,blob);
       self.location.path('/upload');
       self.forceUpdateView();
 
@@ -5448,11 +5353,11 @@ ImageEditController.prototype.loadCropper = function(first_argument) {
 };
 ImageEditController.prototype.initialize = function() {
 	var self = this;
-	self.scope.channels = self.FileService.getChannels();
-	self.scope.options = self.FileService.getOptions();
+	self.scope.channels = self.OptionsService.getChannels();
+	self.scope.options = self.OptionsService.getOptions();
 	self.forceUpdateView();
 	
-	self.scope.file = self.FileService.getFiles()[0];
+	self.scope.file = self.OptionsService.getFiles()[0];
 	if(self.scope.file.content.type.match(/.(?:jpe?g|png)/) === null){
 		self.location.path('/upload');
 		self.forceUpdateView();
@@ -5489,7 +5394,7 @@ app.controller('ImageEditController',ImageEditController);
 
 
 
-UploadController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,FileService) {
+UploadController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -5498,7 +5403,7 @@ UploadController = function($scope,$timeout,DataAccessService,$sce,$filter,$loca
 	self.sce = $sce;
 	self.location = $location;
 	self.Upload = Upload;
-	self.FileService = FileService;
+	self.OptionsService = OptionsService;
 
 	self.setupScopeMethods();
 	
@@ -5534,9 +5439,9 @@ UploadController.prototype.setupScopeMethods = function() {
 UploadController.prototype.initialize = function() {
 	var self = this;
 	var self = this;
-	self.scope.channels = self.FileService.getChannels();
-	self.scope.options = self.FileService.getOptions();
-	self.scope.files = self.FileService.getFiles();
+	self.scope.channels = self.OptionsService.getChannels();
+	self.scope.options = self.OptionsService.getOptions();
+	self.scope.files = self.OptionsService.getFiles();
 	self.uploadFiles();
 	self.forceUpdateView();
    
@@ -5606,7 +5511,7 @@ app.controller('UploadController',UploadController);
 
 
 
-PrimaryController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,FileService) {
+PrimaryController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -5615,7 +5520,7 @@ PrimaryController = function($scope,$timeout,DataAccessService,$sce,$filter,$loc
 	self.sce = $sce;
 	self.location = $location;
 	self.Upload = Upload;
-	self.FileService = FileService;
+	self.OptionsService = OptionsService;
  
 	
 	self.data_access_service = new DataAccessService();
@@ -5639,9 +5544,9 @@ PrimaryController.prototype.initialize = function() {
 	
 
 	self.data_access_service.getAppDefaults().then(function(response){
-		self.FileService.updateChannels(response.data.channels);
-		self.FileService.updateOptions(response.data.options);
-		self.FileService.updateLimits(response.data.limits);
+		self.OptionsService.updateChannels(response.data.channels);
+		self.OptionsService.updateOptions(response.data.options);
+		self.OptionsService.updateLimits(response.data.limits);
 		self.forceUpdateView();
 
 		self.broadcastStatus('READY');
@@ -5672,11 +5577,11 @@ PrimaryController.prototype.processEvent = function(ev) {
 	console.log("Child Received Event");
 	console.log(ev);
 	if(ev.category === "INITIALIZE") {
-		self.FileService.clearFiles();
-		self.FileService.updateOptions(ev.data.options);
+		self.OptionsService.clearFiles();
+		self.OptionsService.updateOptions(ev.data.options);
 		//filter channels to display only those that were requested by the client
 		if(ev.data.options.channels !== undefined && ev.data.options.channels !== null){
-			self.FileService.filterChannels(ev.data.options.channels);
+			self.OptionsService.filterChannels(ev.data.options.channels);
 		}
 		self.location.path('/channels/my_computer');
 		self.forceUpdateView();

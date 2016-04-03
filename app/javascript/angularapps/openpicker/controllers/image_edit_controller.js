@@ -1,5 +1,5 @@
 
-ImageEditController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,FileService) {
+ImageEditController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -8,7 +8,7 @@ ImageEditController = function($scope,$timeout,DataAccessService,$sce,$filter,$l
 	self.sce = $sce;
 	self.location = $location;
 	self.Upload = Upload;
-	self.FileService = FileService;
+	self.OptionsService = OptionsService;
  
 	
 	self.data_access_service = new DataAccessService();
@@ -31,7 +31,7 @@ ImageEditController.prototype.setupScopeMethods = function() {
 			var urlCreator = window.URL || window.webkitURL; 
 			var imageUrl = urlCreator.createObjectURL(blob); 
 
-			self.FileService.updateFileBlob(self.scope.file.unique_id,blob);
+			self.OptionsService.updateFileBlob(self.scope.file.unique_id,blob);
       self.location.path('/upload');
       self.forceUpdateView();
 
@@ -54,11 +54,11 @@ ImageEditController.prototype.loadCropper = function(first_argument) {
 };
 ImageEditController.prototype.initialize = function() {
 	var self = this;
-	self.scope.channels = self.FileService.getChannels();
-	self.scope.options = self.FileService.getOptions();
+	self.scope.channels = self.OptionsService.getChannels();
+	self.scope.options = self.OptionsService.getOptions();
 	self.forceUpdateView();
 	
-	self.scope.file = self.FileService.getFiles()[0];
+	self.scope.file = self.OptionsService.getFiles()[0];
 	if(self.scope.file.content.type.match(/.(?:jpe?g|png)/) === null){
 		self.location.path('/upload');
 		self.forceUpdateView();

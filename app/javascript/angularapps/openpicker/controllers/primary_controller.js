@@ -1,5 +1,5 @@
 
-PrimaryController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,FileService) {
+PrimaryController = function($scope,$timeout,DataAccessService,$sce,$filter,$location,Upload,OptionsService) {
 	var self = this;
 	
 	self.scope = $scope;
@@ -8,7 +8,7 @@ PrimaryController = function($scope,$timeout,DataAccessService,$sce,$filter,$loc
 	self.sce = $sce;
 	self.location = $location;
 	self.Upload = Upload;
-	self.FileService = FileService;
+	self.OptionsService = OptionsService;
  
 	
 	self.data_access_service = new DataAccessService();
@@ -32,9 +32,9 @@ PrimaryController.prototype.initialize = function() {
 	
 
 	self.data_access_service.getAppDefaults().then(function(response){
-		self.FileService.updateChannels(response.data.channels);
-		self.FileService.updateOptions(response.data.options);
-		self.FileService.updateLimits(response.data.limits);
+		self.OptionsService.updateChannels(response.data.channels);
+		self.OptionsService.updateOptions(response.data.options);
+		self.OptionsService.updateLimits(response.data.limits);
 		self.forceUpdateView();
 
 		self.broadcastStatus('READY');
@@ -65,11 +65,11 @@ PrimaryController.prototype.processEvent = function(ev) {
 	console.log("Child Received Event");
 	console.log(ev);
 	if(ev.category === "INITIALIZE") {
-		self.FileService.clearFiles();
-		self.FileService.updateOptions(ev.data.options);
+		self.OptionsService.clearFiles();
+		self.OptionsService.updateOptions(ev.data.options);
 		//filter channels to display only those that were requested by the client
 		if(ev.data.options.channels !== undefined && ev.data.options.channels !== null){
-			self.FileService.filterChannels(ev.data.options.channels);
+			self.OptionsService.filterChannels(ev.data.options.channels);
 		}
 		self.location.path('/channels/my_computer');
 		self.forceUpdateView();
