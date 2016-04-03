@@ -1,6 +1,6 @@
 {
   "name": "openpicker",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Open Picker : Open source and self hosted file picker for websites",
   "engines": {
     "node": "4.2.2",
@@ -28,7 +28,7 @@
     "connect-multiparty": "2.0.0",
     "fs-extra": "0.26.7",
     "properties-reader": "0.0.15",
-    "cookie-parser" : "1.4.1",
+    "cookie-parser": "1.4.1",
     "csurf": "1.8.3"
   },
   "devDependencies": {
