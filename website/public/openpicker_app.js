@@ -5334,10 +5334,9 @@ MyComputerController.prototype.setupScopeMethods = function() {
 
 		self.scope.uploadError = false;
 		if(files !== null && files !== undefined) {
-			if( Object.prototype.toString.call( files ) === '[object Array]' ) {
-	    		alert( 'Array!' );
+			if( Object.prototype.toString.call( files ) !== '[object Array]' ) {
+	    		files = [files];
 			}
-			files = [files];
 			for(var i = 0;i<files.length;i++){
 				if(files[i].size > self.scope.limits.maxSize || files[i].size < self.scope.limits.minSize){
 					self.scope.uploadError = true;
