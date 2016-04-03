@@ -4,8 +4,10 @@ OpenPicker is an open source and self hosted file picker for your websites.
 
 
 # Installation
+### Deploy to Heroku
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/gauravtiwari5050/OpenPickerHeroku)
 
-### Deploy using npm
+### Deploy to your server using npm
 ```sh
 $ npm i -g openpicker
 ```
