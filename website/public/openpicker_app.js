@@ -5051,19 +5051,19 @@ app.config(function($routeProvider) {
     $routeProvider
     	// route for the home page
         .when('/', {
-            templateUrl : '/templates/primary.html.ejs',
+            templateUrl : 'template_primary',
             controller  : 'PrimaryController'
         })
         .when('/channels/my_computer', {
-            templateUrl : '/templates/my_computer.html.ejs',
+            templateUrl : 'template_my_computer',
             controller  : 'MyComputerController'
         })
         .when('/edit/image', {
-            templateUrl : '/templates/image_edit.html.ejs',
+            template : 'template_image_edit',
             controller  : 'ImageEditController'
         })
         .when('/upload', {
-            templateUrl : '/templates/upload.html.ejs',
+            templateUrl : 'template_upload',
             controller  : 'UploadController'
         })
         .otherwise({
