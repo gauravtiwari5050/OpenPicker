@@ -11,7 +11,7 @@ app.config(function($routeProvider) {
             controller  : 'MyComputerController'
         })
         .when('/edit/image', {
-            template : 'template_image_edit',
+            templateUrl : 'template_image_edit',
             controller  : 'ImageEditController'
         })
         .when('/upload', {
