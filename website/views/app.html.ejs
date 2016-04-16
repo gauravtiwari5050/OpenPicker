@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <!-- Bootstrap core CSS -->
-    <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="cropper.css" rel="stylesheet">
@@ -23,7 +23,7 @@
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="/assets/js/ie-emulation-modes-warning.js"></script>
+    <script src="assets/js/ie-emulation-modes-warning.js"></script>
 
     <script type="text/javascript" src="/openpicker_app.js"></script>
 
@@ -34,6 +34,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
   </head>
 
   <body ng-view route-change-spinner>
@@ -43,4 +44,16 @@
 
     
   </body>
+  <script type="text/ng-template" id="template_image_edit">
+    <%include ./templates/image_edit.html.ejs%>
+  </script>
+  <script type="text/ng-template" id="template_primary">
+    <%include ./templates/primary.html.ejs%>
+  </script>
+  <script type="text/ng-template" id="template_my_computer">
+    <%include ./templates/my_computer.html.ejs%>
+  </script>
+  <script type="text/ng-template" id="template_upload">
+    <%include ./templates/upload.html.ejs%>
+  </script>
 </html>
