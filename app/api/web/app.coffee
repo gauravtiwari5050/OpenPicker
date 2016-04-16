@@ -9,7 +9,7 @@ exports.init = (app) ->
 		response.render('app.html.ejs',{csrf: request.csrfToken()})
 
 	app.get '/usage', (request,response) ->
-		response.render('usage.html.ejs',{host: request.headers.host})
+		response.render('usage.html.ejs',{host: request.headers.host,timestamp: appconfig.getServerStartTime() })
 
 	app.get '/' , (request,response) ->
 		response.redirect(301,'/usage')

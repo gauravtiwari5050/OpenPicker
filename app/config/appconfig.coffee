@@ -11,6 +11,9 @@ class Appconfig
 		else
 			console.log("No Properties file found at path #{propertiesFile}")
 			@properties = PropertiesReader()
+
+		@startTimeStamp = (new Date()).getTime()
+		console.log "Server started at #{@startTimeStamp}"
 		
 		return
 	getProperty: (key) ->
@@ -56,6 +59,9 @@ class Appconfig
 		if !port?
 			port = 5050
 		return port
+
+	getServerStartTime: () ->
+		return @startTimeStamp
 		
 
 
