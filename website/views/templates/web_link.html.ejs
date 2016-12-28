@@ -2,7 +2,7 @@
   <div class="container-fluid fill">
     <div class="row fill">
        <div class="col-sm-9 col-sm-push-3 fill">
-          <form class="form-inline">
+          <form class="form-inline" style="margin-top:20px;">
             <div class="form-group">
               <label>Name</label>
               <input type="text" class="form-control" ng-model="file.name" placeholder="cats.jpg">
@@ -11,11 +11,16 @@
               <label>Url</label>
               <input type="text" class="form-control" ng-model="file.src" placeholder="http://something.com/image.jpg">
             </div>
-            <button type="submit" class="btn btn-primary" ng-click="fetch()">Fetch Image</button>
-            <div ng-if="uploadError == true" style="text-align:center;margin-top:20px" class="alert alert-danger">
-              <p>Some of the files you selected exceed file limits </p><p>or are not allowed to be uploaded. </p> <p>Please try again.</p>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" ng-click="fetch()">Fetch Image</button>
             </div>
           </form>
+          <div ng-if="showLoader" style="text-align: center;">
+            <img src="../../ring.gif">
+          </div>
+          <div ng-if="uploadError == true" style="text-align:center;margin-top:20px" class="alert alert-danger">
+            <p>Some of the files you selected exceed file limits </p><p>or are not allowed to be uploaded. </p> <p>Please try again.</p>
+          </div>
        </div>
        <div class="col-sm-3 col-sm-pull-9  fill toc" style="overflow:auto">
          <%include ../partials/toc.html.ejs%>

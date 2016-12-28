@@ -10,7 +10,7 @@ async = require('async')
 tmpDir = appconfig.getTemporaryDirectory()
 fileLimits = appconfig.getFileLimits()
 filestores = {}
-
+imageRegex = /.(?:jpe?g|png|gif|svg)$/
 
 exports.init = (app) ->
 	
@@ -42,7 +42,8 @@ exports.init = (app) ->
 					console.log "got headers"
 					content_type = res.headers["content-type"]
 					content_size = parseInt(res.headers["content-length"])
-					if content_type.match(/.(?:jpe?g|png|gif|svg)$/)
+					console.log res.headers
+					if reqURL.match(imageRegex) || content_type.match(imageRegex)
 						console.log "header match"
 						if content_size <= fileLimits.maxSize || isNaN content_size
 							console.log "content within size or no content-length header present"

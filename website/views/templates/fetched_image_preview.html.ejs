@@ -5,14 +5,14 @@
           <form class="form-inline">
             <div class="form-group">
               <div ng-repeat="img in images">
-                <img  ng-src="{{img.src}}">
+                <img  ng-src="{{img.src}}" style="max-width: 500px;max-height: 500px;">
               </div>
             </div>
-            <button type="submit" class="btn btn-primary" ng-model="files.name" ng-click="uploadImage()">Use This Image</button>
-            <div ng-if="uploadError == true" style="text-align:center;margin-top:20px" class="alert alert-danger">
-              <p>Some of the files you selected exceed file limits </p><p>or are not allowed to be uploaded. </p> <p>Please try again.</p>
-            </div>
           </form>
+          <button type="submit" class="btn btn-primary" ng-model="files.name" ng-click="uploadImage()">Use This Image</button>
+          <div ng-if="uploadError == true" style="text-align:center;margin-top:20px" class="alert alert-danger">
+            <p>Some of the files you selected exceed file limits </p><p>or are not allowed to be uploaded. </p> <p>Please try again.</p>
+          </div>
        </div>
        <div class="col-sm-3 col-sm-pull-9  fill toc" style="overflow:auto">
          <%include ../partials/toc.html.ejs%>

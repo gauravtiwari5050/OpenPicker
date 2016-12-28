@@ -35,8 +35,10 @@
           
      // }
      self.scope.fetch = function(){
+     self.scope.showLoader = true;
      self.http.post("/fetch/", {url : self.scope.file.src,
       fileName : self.scope.file.name}).then(function(response){
+        self.scope.showLoader = false;
         if(response.data.error)
             console.log(response.data);
         else{
