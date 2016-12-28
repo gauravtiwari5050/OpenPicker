@@ -26,7 +26,6 @@
     <script src="assets/js/ie-emulation-modes-warning.js"></script>
 
     <script type="text/javascript" src="/openpicker_app.js"></script>
-
     <meta name="csrf" content="<%=csrf%>">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -45,7 +44,13 @@
     </script>
     <script type="text/ng-template" id="template_upload">
       <%include ./templates/upload.html.ejs%>
-  </script> 
+    </script>
+    <script type="text/ng-template" id="template_web_link">
+      <%include ./templates/web_link.html.ejs%>
+    </script>
+    <script type="text/ng-template" id="template_fetched_image_preview">
+      <%include ./templates/fetched_image_preview.html.ejs%>
+    </script> 
 
   </head>
 

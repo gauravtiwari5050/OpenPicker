@@ -40,7 +40,9 @@ module.exports = function (grunt) {
           'app/javascript/angularapps/openpicker/controllers/my_computer_controller.js',
           'app/javascript/angularapps/openpicker/controllers/image_edit_controller.js',
           'app/javascript/angularapps/openpicker/controllers/upload_controller.js',
-          'app/javascript/angularapps/openpicker/controllers/primary_controller.js'
+          'app/javascript/angularapps/openpicker/controllers/primary_controller.js',
+          'app/javascript/angularapps/openpicker/controllers/web_link_controller.js',
+          'app/javascript/angularapps/openpicker/controllers/fetched_image_preview_controller.js'
         ],
         dest: 'website/public/openpicker_app.js'
       }

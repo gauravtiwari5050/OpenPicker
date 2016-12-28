@@ -85,7 +85,8 @@ OpenPicker expects a properties.conf file in the working directory. You can set 
 ```sh
 FILESTORES=disk,s3 <comma seperated list, default: disk, only s3 and disk are supported as of now>
 
-UPLPOAD_DIRECTORY=<full path to disk location where you want to save files, default is ./uploads>
+UPLOAD_DIRECTORY=<full path to disk location where you want to save files, default is ./uploads>
+TEMPORARY_DIRECTORY=<full path to disk location where you want to save files temporarily, default is ./tmp>
 
 MIN_SIZE=minimum file size in bytes
 

@@ -4,10 +4,7 @@ moment = require('moment')
 multiparty = require('connect-multiparty')
 fs = require('fs')
 csrf = require('csurf')
-tmpDir = "#{process.cwd()}/.tmp"
-if !fs.existsSync(tmpDir)
-	fs.mkdirSync(tmpDir)
-
+tmpDir = appconfig.getTemporaryDirectory()
 multipartyMiddleware = multiparty({uploadDir: tmpDir })
 async = require('async')
 filestores = {}

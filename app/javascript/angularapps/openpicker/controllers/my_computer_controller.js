@@ -27,7 +27,6 @@ MyComputerController.prototype.setupScopeMethods = function() {
 		self.OptionsService.clearFiles();
 
 		var files = self.scope.files;
-
 		self.scope.uploadError = false;
 		if(files !== null && files !== undefined) {
 			if( Object.prototype.toString.call( files ) !== '[object Array]' ) {

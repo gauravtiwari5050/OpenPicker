@@ -1,5 +1,5 @@
 
       <div ng-repeat="channel in channels " class="toc_member ">
         <i style="width:25px" class="fa fa-{{channel.fa_icon}}"></i> 
-        {{channel.name}}
+        <a href="/app#!/channels/{{channel.unique_id | lowercase}}">{{channel.name}}</a>
       </div>

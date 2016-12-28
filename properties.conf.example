@@ -7,3 +7,4 @@ PORT = 5050
 MIN_SIZE = 1
 MAX_SIZE = 3145728
 UPLOAD_DIRECTORY= your_uploads_directoy_here
+TEMPORARY_DIRECTORY= your_temporary_directoy_here

@@ -2,6 +2,7 @@ app.service('OptionsService', function() {
   var fileList = [];
   var options = {};
   var limits = {};
+  var tempFileList = [];
 
   var channels = [];
   
@@ -22,6 +23,10 @@ app.service('OptionsService', function() {
       }
 
       fileList.push(fileObj);
+  };  
+
+  var addTempFile = function(fileObj) {
+      tempFileList.push(fileObj);
   };
 
   var updateFileBlob = function(unique_id,newObj){
@@ -37,6 +42,10 @@ app.service('OptionsService', function() {
 
   var getFiles = function(){
       return fileList;
+  };
+
+  var getTempFiles = function(){
+      return tempFileList;
   };
 
   var updateOptions = function(newOptions){
@@ -78,6 +87,8 @@ app.service('OptionsService', function() {
   return {
     addFile: addFile,
     getFiles: getFiles,
+    addTempFile: addTempFile,
+    getTempFiles: getTempFiles,
     clearFiles : clearFiles,
     updateFileBlob: updateFileBlob,
     updateOptions : updateOptions,

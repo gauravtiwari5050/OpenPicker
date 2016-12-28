@@ -27,6 +27,15 @@ class Appconfig
 		if !fs.existsSync(uploadDirectory)
 			fs.mkdirSync(uploadDirectory)
 		return uploadDirectory
+
+	getTemporaryDirectory: () ->
+		key = "TEMPORARY_DIRECTORY"
+		temporaryDirectory = this.getProperty(key)
+		if !temporaryDirectory?
+			temporaryDirectory = "#{process.cwd()}/.tmp"
+		if !fs.existsSync(temporaryDirectory)
+			fs.mkdirSync(temporaryDirectory)
+		return temporaryDirectory
 		
 	getFileStores: () ->
 		key = "FILESTORES"
