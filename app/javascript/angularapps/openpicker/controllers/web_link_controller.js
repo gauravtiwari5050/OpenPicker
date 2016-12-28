@@ -37,16 +37,20 @@
      self.scope.fetch = function(){
      self.http.post("/fetch/", {url : self.scope.file.src,
       fileName : self.scope.file.name}).then(function(response){
-        var fileObj = {
-                path: response.data.path,
-                name: response.data.name,
-                src: window.location.origin + '/'+response.data.name
-            };
-            console.log(fileObj);
-            if(fileObj !== null && fileObj !== undefined)
-            self.OptionsService.addTempFile(fileObj);
-            self.location.path('/fetched_image_preview');
-            self.forceUpdateView();
+        if(response.data.error)
+            console.log(response.data);
+        else{
+            var fileObj = {
+                    path: response.data.path,
+                    name: response.data.name,
+                    src: window.location.origin + '/'+response.data.name
+                };
+                console.log(fileObj);
+                if(fileObj !== null && fileObj !== undefined)
+                self.OptionsService.addTempFile(fileObj);
+                self.location.path('/fetched_image_preview');
+                self.forceUpdateView();
+        }
       });
     };
 

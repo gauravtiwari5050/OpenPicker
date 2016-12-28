@@ -1,4 +1,4 @@
-#include all the required dependencies
+\#include all the required dependencies
 util = require('../../common/util')
 appconfig = require('../../config/appconfig').appconfig
 moment = require('moment')
@@ -10,7 +10,7 @@ async = require('async')
 tmpDir = appconfig.getTemporaryDirectory()
 fileLimits = appconfig.getFileLimits()
 filestores = {}
-responseObject = {}
+
 
 exports.init = (app) ->
 	
@@ -32,7 +32,9 @@ exports.init = (app) ->
 		fileName = "#{util.uniqueId()}-#{fileName}.jpeg"
 		reqURL = [req.body.url]
 		#First GET request for Headers
+		responseObject = {}
 		fetchImage = (reqURL, callback) -> 
+			dataSize = 0
 			request(reqURL,{method : 'HEAD'}, (err, res) ->
 				if err
 					console.error(err)
@@ -42,15 +44,28 @@ exports.init = (app) ->
 					content_size = parseInt(res.headers["content-length"])
 					if content_type.match(/.(?:jpe?g|png|gif|svg)$/)
 						console.log "header match"
-						if content_size <= fileLimits.maxSize
-							console.log "content within size"
-							request(reqURL,{method : 'GET'}).pipe fs.createWriteStream(tmpDir+'/'+fileName).on('close', () -> 
-									console.log "file written"
-									responseObject = 
-									  name: fileName
-									  path: tmpDir
-									callback(null)
-							)
+						if content_size <= fileLimits.maxSize || isNaN content_size
+							console.log "content within size or no content-length header present"
+							finalReq = request(reqURL,{method : 'GET'})
+							finalReq.on('data', (data) -> 
+									dataSize += data.length
+									if dataSize > fileLimits.maxSize
+										console.log "File Limit Exceeded while fetching, Download will be aborted"
+										console.log "File exceeded limit by #{dataSize-fileLimits.maxSize} bytes"
+										finalReq.abort()
+										fs.unlink(tmpDir+'/'+fileName)
+										responseObject = 
+											error: true
+											message: "Maximum Upload Size Exceeded"
+								).on('end', () -> 
+										if dataSize <= fileLimits.maxSize
+											console.log "file written"
+											responseObject = 
+											  name: fileName
+											  path: tmpDir
+										callback(null)									
+								)
+								.pipe(fs.createWriteStream(tmpDir+'/'+fileName))
 						else
 							console.log("Maximum Upload Size Exceeded")
 							responseObject = 

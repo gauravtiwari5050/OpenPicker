@@ -1,4 +1,5 @@
 node_modules/*
+website/public/openpicker_app.js
 bower_components/*
 tmp/*
 *.conf
