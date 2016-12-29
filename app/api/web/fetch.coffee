@@ -1,20 +1,20 @@
-\#include all the required dependencies
+#include all the required dependencies
 util = require('../../common/util')
 appconfig = require('../../config/appconfig').appconfig
-moment = require('moment')
-multiparty = require('connect-multiparty')
 fs = require('fs')
 request = require('request')
 csrf = require('csurf')
 async = require('async')
+prettysize = require('prettysize')
 tmpDir = appconfig.getTemporaryDirectory()
 fileLimits = appconfig.getFileLimits()
 filestores = {}
 imageRegex = /.(?:jpe?g|png|gif|svg)$/
 
+
 exports.init = (app) ->
 	
-	app.post '/fetch/',(req,res) ->
+	app.post '/fetch/', csrf({ cookie:true }), (req,res) ->
 		#check request came
 		console.log "Request recieved"
 		#request body
@@ -42,9 +42,8 @@ exports.init = (app) ->
 					console.log "got headers"
 					content_type = res.headers["content-type"]
 					content_size = parseInt(res.headers["content-length"])
-					console.log res.headers
 					if reqURL.match(imageRegex) || content_type.match(imageRegex)
-						console.log "header match"
+						console.log "content-type is valid"
 						if content_size <= fileLimits.maxSize || isNaN content_size
 							console.log "content within size or no content-length header present"
 							finalReq = request(reqURL,{method : 'GET'})
@@ -52,7 +51,6 @@ exports.init = (app) ->
 									dataSize += data.length
 									if dataSize > fileLimits.maxSize
 										console.log "File Limit Exceeded while fetching, Download will be aborted"
-										console.log "File exceeded limit by #{dataSize-fileLimits.maxSize} bytes"
 										finalReq.abort()
 										fs.unlink(tmpDir+'/'+fileName)
 										responseObject = 
@@ -64,6 +62,7 @@ exports.init = (app) ->
 											responseObject = 
 											  name: fileName
 											  path: tmpDir
+											  size: prettysize(dataSize)
 										callback(null)									
 								)
 								.pipe(fs.createWriteStream(tmpDir+'/'+fileName))
@@ -81,7 +80,6 @@ exports.init = (app) ->
 						callback(null)
 			)
 		async.each reqURL, fetchImage, () ->
-			console.log responseObject
 			util.sendJSONPResponse req, res, responseObject
 
 

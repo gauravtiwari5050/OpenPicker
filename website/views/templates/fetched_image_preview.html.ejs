@@ -6,10 +6,15 @@
             <div class="form-group">
               <div ng-repeat="img in images">
                 <img  ng-src="{{img.src}}" style="max-width: 500px;max-height: 500px;">
+                <p>The image is {{img.size}} in size.</p>
+                <p>Do you wish to use this image?</p>
               </div>
             </div>
           </form>
-          <button type="submit" class="btn btn-primary" ng-model="files.name" ng-click="uploadImage()">Use This Image</button>
+          <div>
+            <button type="submit" class="btn btn-primary" ng-model="files.name" ng-click="uploadImage()">Use This Image</button>
+            <p style="color: red;font-weight: bold;">Make sure you have sufficient access-rights/permissions to use this image.</p>
+          </div>
           <div ng-if="uploadError == true" style="text-align:center;margin-top:20px" class="alert alert-danger">
             <p>Some of the files you selected exceed file limits </p><p>or are not allowed to be uploaded. </p> <p>Please try again.</p>
           </div>

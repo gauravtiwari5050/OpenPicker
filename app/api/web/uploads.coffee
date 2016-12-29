@@ -13,7 +13,6 @@ filestores = {}
 exports.init = (app) ->
 	app.post '/upload/' ,csrf({ cookie: true }), multipartyMiddleware,(request,response) ->
 
-		
 		file = request.files.file
 		fileName = file.name
 		if !fileName?

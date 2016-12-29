@@ -25,36 +25,42 @@
 
  WebLinkController.prototype.setupScopeMethods = function() {
      var self = this;
-     // self.scope.uploadFiles = function() {
-     //     self.OptionsService.clearFiles();
+     self.scope.fetch = function() {
+        
+         self.scope.showLoader = true;
+         self.scope.uploadError = false;
 
-     //     var file = self.scope.file;
-     //     if(file.src)
-     //        self.location.path('')
+         var postData = {
+             url: self.scope.file.src,
+             fileName: self.scope.file.name
+         },
+         headerData = {'x-csrf-token':$('meta[name=csrf]').attr("content")},
+         requestData = {
+            method: 'POST',
+            url: '/fetch/',
+            headers: headerData,
+            data: postData
+         };
 
-          
-     // }
-     self.scope.fetch = function(){
-     self.scope.showLoader = true;
-     self.http.post("/fetch/", {url : self.scope.file.src,
-      fileName : self.scope.file.name}).then(function(response){
-        self.scope.showLoader = false;
-        if(response.data.error)
-            console.log(response.data);
-        else{
-            var fileObj = {
-                    path: response.data.path,
-                    name: response.data.name,
-                    src: window.location.origin + '/'+response.data.name
-                };
-                console.log(fileObj);
-                if(fileObj !== null && fileObj !== undefined)
-                self.OptionsService.addTempFile(fileObj);
-                self.location.path('/fetched_image_preview');
-                self.forceUpdateView();
-        }
-      });
-    };
+         self.http(requestData).then(function(response) {
+             self.scope.showLoader = false;
+             if (response.data.error) {
+                 self.scope.uploadError = response.data;
+             } else {
+                 var fileObj = {
+                     path: response.data.path,
+                     name: response.data.name,
+                     size: response.data.size,
+                     src: window.location.origin + '/' + response.data.name
+                 };
+                 if (fileObj !== null && fileObj !== undefined){
+                     self.OptionsService.addTempFile(fileObj);
+                     self.location.path('/fetched_image_preview');
+                     self.forceUpdateView();
+                 }
+             }
+         });
+     };
 
  };
 

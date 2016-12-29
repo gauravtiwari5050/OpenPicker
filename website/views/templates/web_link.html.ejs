@@ -15,11 +15,11 @@
               <button type="submit" class="btn btn-primary" ng-click="fetch()">Fetch Image</button>
             </div>
           </form>
-          <div ng-if="showLoader" style="text-align: center;">
+          <div ng-if="showLoader" style="text-align: center; margin-top: 100px;">
             <img src="../../ring.gif">
           </div>
-          <div ng-if="uploadError == true" style="text-align:center;margin-top:20px" class="alert alert-danger">
-            <p>Some of the files you selected exceed file limits </p><p>or are not allowed to be uploaded. </p> <p>Please try again.</p>
+          <div ng-if="uploadError.error == true" style="text-align:center;margin-top:20px" class="alert alert-danger">
+            <p>{{uploadError.message}}</p> <p>Please try again.</p>
           </div>
        </div>
        <div class="col-sm-3 col-sm-pull-9  fill toc" style="overflow:auto">

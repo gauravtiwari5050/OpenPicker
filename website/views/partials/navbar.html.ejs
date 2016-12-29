@@ -14,7 +14,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav onlymobile">
               <li ng-repeat="channel in channels ">
-                <a href="">
+                <a href="/app#!/channels/{{channel.unique_id | lowercase}}">
                 <i style="width:25px" class="fa fa-{{channel.fa_icon}}"></i> 
                 {{channel.name}}
                 </a>

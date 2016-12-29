@@ -33,11 +33,12 @@
   },
   "devDependencies": {
     "grunt": "latest",
+    "grunt-bower-concat": "latest",
     "grunt-contrib-concat": "latest",
     "grunt-contrib-connect": "latest",
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-watch": "latest",
-    "grunt-bower-concat": "latest"
+    "prettysize": "0.0.3"
   },
   "author": "gauravtiwari5050",
   "repository": {
