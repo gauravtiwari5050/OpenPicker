@@ -9,16 +9,13 @@ prettysize = require('prettysize')
 tmpDir = appconfig.getTemporaryDirectory()
 fileLimits = appconfig.getFileLimits()
 filestores = {}
-imageRegex = /.(?:jpe?g|png|gif|svg)$/
-
+mimeRegex = /.(jpe?g|png|gif|svg|avi|wmv|flv|mpg|3gp|mkv|mp4|mpeg|mpeg-1|mpeg-2|mpeg-3|mpeg-4|mp3|wav|xlsx?|zip|7z|docx?|pptx?|pdf)$/i
 
 exports.init = (app) ->
 	
 	app.post '/fetch/', csrf({ cookie:true }), (req,res) ->
 		#check request came
 		console.log "Request recieved"
-		#request body
-		console.log req.body
 		#set file name from req.body
 		fileName = req.body.fileName
 		#if file name doesn't exist 
@@ -29,7 +26,7 @@ exports.init = (app) ->
 		fileName = fileName.replace(/@[^0-9a-z\.]+@i/g, "-")
 		fileName = fileName.replace(/\ +/g, "-")
 		#give file a unique id ending with the file name , provided it has one.
-		fileName = "#{util.uniqueId()}-#{fileName}.jpeg"
+		fileName = "#{util.uniqueId()}-#{fileName}"
 		reqURL = [req.body.url]
 		#First GET request for Headers
 		responseObject = {}
@@ -40,12 +37,16 @@ exports.init = (app) ->
 					console.error(err)
 				else
 					console.log "got headers"
+					console.log req.headers
 					content_type = res.headers["content-type"]
 					content_size = parseInt(res.headers["content-length"])
-					if reqURL.match(imageRegex) || content_type.match(imageRegex)
+					if reqURL.match(mimeRegex) || content_type.match(mimeRegex)
 						console.log "content-type is valid"
+						extension = (reqURL.match(mimeRegex) || content_type.match(mimeRegex)).pop()
+						fileName = fileName+'.'+extension
 						if content_size <= fileLimits.maxSize || isNaN content_size
 							console.log "content within size or no content-length header present"
+							console.log content_size
 							finalReq = request(reqURL,{method : 'GET'})
 							finalReq.on('data', (data) -> 
 									dataSize += data.length
@@ -63,6 +64,7 @@ exports.init = (app) ->
 											  name: fileName
 											  path: tmpDir
 											  size: prettysize(dataSize)
+											  type: content_type
 										callback(null)									
 								)
 								.pipe(fs.createWriteStream(tmpDir+'/'+fileName))
@@ -73,10 +75,10 @@ exports.init = (app) ->
 								message: "Maximum Upload Size Exceeded"
 							callback(null)
 					else
-						console.log("Content-Type not image")
+						console.log("Content-Type not valid")
 						responseObject = 
 							error: true
-							message: "Content-Type not image"
+							message: "Content-Type not valid"
 						callback(null)
 			)
 		async.each reqURL, fetchImage, () ->

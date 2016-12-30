@@ -24,11 +24,16 @@
      self.scope.uploadImage = function(){
           var file = self.scope.images[0];
           self.http.get(file.src, {responseType: 'arraybuffer'}).then(function(response){
-               var blob = new Blob([response.data], {type:"image/jpeg"});
+               var blob = new Blob([response.data], {type:file.type}, "1.0");
                blob.name = file.name;
-          console.log(blob)
+
           self.OptionsService.addFile(blob);
-          self.location.path('/edit/image');
+
+          if(file.type.match(/image\/.*/i))
+               self.location.path('/edit/image');
+          else
+               self.location.path('/upload');
+
           self.forceUpdateView();
           });
      };
@@ -40,6 +45,7 @@
      self.scope.options = self.OptionsService.getOptions();
      self.scope.limits = self.OptionsService.getLimits();
      self.scope.images = self.OptionsService.getTempFiles();
+     console.log(self.scope.images)
      self.forceUpdateView();
  };
 

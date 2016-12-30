@@ -51,6 +51,7 @@
                      path: response.data.path,
                      name: response.data.name,
                      size: response.data.size,
+                     type: response.data.type,
                      src: window.location.origin + '/' + response.data.name
                  };
                  if (fileObj !== null && fileObj !== undefined){
