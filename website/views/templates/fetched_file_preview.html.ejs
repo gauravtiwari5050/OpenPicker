@@ -1,12 +1,13 @@
   <%include ../partials/navbar.html.ejs%>
-  <div class="container-fluid fill">
+  <div class="container-fluid fill" style="padding: 10px;">
     <div class="row fill">
-       <div class="col-sm-9 col-sm-push-3 fill">
+       <div class="col-sm-9 col-sm-push-3 fill" style="padding: 10px;text-align: center;">
           <form class="form-inline">
             <div class="form-group">
-              <div ng-repeat="img in images">
-                <iframe  ng-src="{{img.src}}" style="width: 700px;height: 300px;padding: 5px; margin: 10px;"></iframe>
-                <p>The file is {{img.size}} in size.</p>
+              <div ng-repeat="file in files">
+                <iframe  ng-src="{{file.src}}" width="500" height="300" ng-if="!isImage"></iframe>
+                <img  ng-src="{{file.src}}" style="width: 100%;height: auto; max-height: 400px; max-width: 400px;" ng-if="isImage">
+                <p>The file is {{file.size}} in size.</p>
                 <p>Do you wish to use this file?</p>
               </div>
             </div>

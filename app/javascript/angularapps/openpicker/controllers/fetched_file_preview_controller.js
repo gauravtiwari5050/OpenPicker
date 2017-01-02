@@ -10,7 +10,6 @@
      self.OptionsService = OptionsService;
      self.logger = new LogService();
 
-
      self.data_access_service = new DataAccessService();
 
 
@@ -22,17 +21,17 @@
  FetchedFilePreviewController.prototype.setupScopeMethods = function() {
      var self = this;
      self.scope.uploadImage = function(){
-          var file = self.scope.images[0];
+          var file = self.scope.files[0];
           self.http.get(file.src, {responseType: 'arraybuffer'}).then(function(response){
                var blob = new Blob([response.data], {type:file.type}, "1.0");
                blob.name = file.name;
 
           self.OptionsService.addFile(blob);
 
-          if(file.type.match(/image\/.*/i))
-               self.location.path('/edit/image');
+          if(self.scope.isImage)
+             self.location.path('/edit/image');
           else
-               self.location.path('/upload');
+             self.location.path('/upload');
 
           self.forceUpdateView();
           });
@@ -44,8 +43,13 @@
      self.scope.channels = self.OptionsService.getChannels();
      self.scope.options = self.OptionsService.getOptions();
      self.scope.limits = self.OptionsService.getLimits();
-     self.scope.images = self.OptionsService.getTempFiles();
-     console.log(self.scope.images)
+     self.scope.files = self.OptionsService.getTempFiles();
+
+     if(self.scope.files[0].type.match(/image\/.*/i))
+          self.scope.isImage = true;
+     else
+          self.scope.isImage = false;
+
      self.forceUpdateView();
  };
 

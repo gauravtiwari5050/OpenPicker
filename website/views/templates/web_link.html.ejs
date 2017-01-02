@@ -1,12 +1,12 @@
   <%include ../partials/navbar.html.ejs%>
   <div class="container-fluid fill">
     <div class="row fill">
-       <div class="col-sm-9 col-sm-push-3 fill">
-          <form class="form-inline" style="margin-top:20px;">
+       <div class="col-sm-9 col-sm-push-3 fill" style="padding: 10px;">
+          <form style="margin-top:20px;">
             <div class="form-group">
-              <label>Name</label>
+              <label>File Name</label>
               <input type="text" class="form-control" ng-model="file.name" placeholder="cats">
-              <p>avoid file extensions like .jpg,.png etc.</p>
+              <p style="color:green;">avoid file extensions like .jpg,.png etc.</p>
             </div>            
             <div class="form-group">
               <label>Url</label>

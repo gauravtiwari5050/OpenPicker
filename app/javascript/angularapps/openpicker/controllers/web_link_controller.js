@@ -32,12 +32,13 @@
 
          var postData = {
              url: self.scope.file.src,
-             fileName: self.scope.file.name
+             fileName: self.scope.file.name,
+             allowedMimeTypes: self.scope.options.mimetypes
          },
          headerData = {'x-csrf-token':$('meta[name=csrf]').attr("content")},
          requestData = {
             method: 'POST',
-            url: '/fetch/',
+            url: self.scope.postURL,
             headers: headerData,
             data: postData
          };
@@ -71,6 +72,13 @@
      self.scope.options = self.OptionsService.getOptions();
      self.scope.limits = self.OptionsService.getLimits();
      self.scope.files = [];
+
+     if(self.scope.options.mimetypes.match(/image\/.*/i))
+        self.scope.postURL = '/fetch/image';
+     else
+        self.scope.postURL = '/fetch/';
+
+
      self.forceUpdateView();
  };
 

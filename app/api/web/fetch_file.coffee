@@ -9,7 +9,7 @@ prettysize = require('prettysize')
 tmpDir = appconfig.getTemporaryDirectory()
 fileLimits = appconfig.getFileLimits()
 filestores = {}
-mimeRegex = /.(jpe?g|png|gif|svg|avi|wmv|flv|mpg|3gp|mkv|mp4|mpeg|mpeg-1|mpeg-2|mpeg-3|mpeg-4|mp3|wav|xlsx?|zip|7z|docx?|pptx?|pdf)$/i
+mimeRegex = /.(avi|wmv|flv|mpg|3gp|mkv|mp4|mpeg|mpeg-1|mpeg-2|mpeg-3|mpeg-4|mp3|wav|xlsx?|zip|7z|docx?|pptx?|pdf)$/i
 
 exports.init = (app) ->
 	
@@ -21,7 +21,6 @@ exports.init = (app) ->
 		#if file name doesn't exist 
 		if !fileName?
 			fileName = ""
-
 		#Remove unnecessary characters and spaces in the file
 		fileName = fileName.replace(/@[^0-9a-z\.]+@i/g, "-")
 		fileName = fileName.replace(/\ +/g, "-")
@@ -30,23 +29,35 @@ exports.init = (app) ->
 		reqURL = [req.body.url]
 		#First GET request for Headers
 		responseObject = {}
-		fetchImage = (reqURL, callback) -> 
+		#Check user allowed Mime Types
+		if req.body.allowedMimeTypes != "*/*"
+			fileRegex = req.body.allowedMimeTypes
+		else
+			fileRegex = mimeRegex
+        
+		fetchFile = (reqURL, callback) -> 
 			dataSize = 0
 			request(reqURL,{method : 'HEAD'}, (err, res) ->
 				if err
 					console.error(err)
 				else
 					console.log "got headers"
-					console.log res.headers
 					content_type = res.headers["content-type"]
 					content_size = parseInt(res.headers["content-length"])
-					if reqURL.match(mimeRegex) || content_type.match(mimeRegex)
+					console.log res.headers
+					#If Content-Type not found , set it to null
+					if !content_type?
+						content_type = ""
+					#Content Type Validation. Checks URL with mimeRegex or content header with fileRegex
+					if reqURL.match(mimeRegex) || content_type.match(fileRegex)
 						console.log "content-type is valid"
+						#If extension found using mimeRegex, attach it else ignore
 						extension = (reqURL.match(mimeRegex) || content_type.match(mimeRegex)).pop()
-						fileName = fileName+'.'+extension
+						if extension
+							fileName = fileName+'.'+extension
+						#Content Size Validation
 						if content_size <= fileLimits.maxSize || isNaN content_size
 							console.log "content within size or no content-length header present"
-							console.log content_size
 							finalReq = request(reqURL,{method : 'GET'})
 							finalReq.on('data', (data) -> 
 									dataSize += data.length
@@ -69,19 +80,19 @@ exports.init = (app) ->
 								)
 								.pipe(fs.createWriteStream(tmpDir+'/'+fileName))
 						else
-							console.log("Maximum Upload Size Exceeded")
+							console.log "Maximum Upload Size Exceeded"
 							responseObject = 
 								error: true
 								message: "Maximum Upload Size Exceeded"
 							callback(null)
 					else
-						console.log("Content-Type not valid")
+						console.log "Content-Type not valid"
 						responseObject = 
 							error: true
 							message: "Content-Type not valid"
 						callback(null)
 			)
-		async.each reqURL, fetchImage, () ->
+		async.each reqURL, fetchFile, () ->
 			util.sendJSONPResponse req, res, responseObject
 
 

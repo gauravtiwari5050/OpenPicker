@@ -55,11 +55,15 @@
 
           <div class="blog-post">
             <h2 class="blog-post-title">Use OpenPicker</h2>
-            <textarea class="form-control" rows="6" readonly>
-    window.openpicker.getFiles({mimetypes: &quot;image/*&quot;,conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
-      console.log(openpickerResponse);
-      $('#image').attr('src',openpickerResponse.file.url);
-    });
+            <textarea class="form-control" rows="10" readonly>
+var allowedMimeTypes = "image/*";
+$('#button').click(function(){
+window.openpicker.getFiles({mimetypes: allowedMimeTypes,conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
+console.log("Open Picker Response is");
+if(allowedMimeTypes =="image/*"){$('#uploadedImage').attr('src',openpickerResponse.file.url);$('#uploadedImage').show();}
+else{$('#uploadedFile').attr('src',openpickerResponse.file.url);$('#uploadedFile').show();}
+});
+}); 
             </textarea>
           </div><!-- /.blog-post -->
 
@@ -72,7 +76,11 @@
             <div> 
               <button id="button" class="btn btn-success"> Upload An Image </button>
             </div>
-            <img id="image"src="" style="width:100%;height:auto;padding-top:20px"></img>
+            <div style="padding: 5px; margin-right: 10px;">
+              <iframe id="uploadedFile" src="" width="500" height="300" style="display: none;"></iframe>
+              <img id="uploadedImage" src="" style="display: none; width: 100%; height: auto;">
+            </div>
+            <p></p>
           </div>
         </div><!-- /.blog-sidebar -->
 
@@ -90,14 +98,20 @@
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript">
+      var allowedMimeTypes = "image/*";
       $('#button').click(function(){
-          
-          window.openpicker.getFiles({mimetypes: "image/*",conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
-            console.log("Open Picker Resonse is");
+          window.openpicker.getFiles({mimetypes: allowedMimeTypes ,conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
+            console.log("Open Picker Response is");
             console.log(openpickerResponse);
-            $('#image').attr('src',openpickerResponse.file.url);
+            if(allowedMimeTypes == "image/*"){
+              $('#uploadedImage').attr('src',openpickerResponse.file.url);
+              $('#uploadedImage').show();
+            }
+            else{
+              $('#uploadedFile').attr('src',openpickerResponse.file.url);
+              $('#uploadedFile').show();         
+            }
           });
-          
       });
     </script>
 
