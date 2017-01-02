@@ -5919,7 +5919,7 @@ app.controller('PrimaryController',PrimaryController);
 
  FetchedFilePreviewController.prototype.setupScopeMethods = function() {
      var self = this;
-     self.scope.uploadImage = function(){
+     self.scope.uploadFile = function(){
           var file = self.scope.files[0];
           self.http.get(file.src, {responseType: 'arraybuffer'}).then(function(response){
                var blob = new Blob([response.data], {type:file.type}, "1.0");
