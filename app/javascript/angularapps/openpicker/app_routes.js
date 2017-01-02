@@ -22,9 +22,9 @@ app.config(function($routeProvider) {
             templateUrl : 'template_upload',
             controller  : 'UploadController'
         })        
-        .when('/fetched_image_preview', {
-            templateUrl : 'template_fetched_image_preview',
-            controller  : 'FetchedImagePreviewController'
+        .when('/fetched_file_preview', {
+            templateUrl : 'template_fetched_file_preview',
+            controller  : 'FetchedFilePreviewController'
         })
         .otherwise({
         	redirectTo: '/'

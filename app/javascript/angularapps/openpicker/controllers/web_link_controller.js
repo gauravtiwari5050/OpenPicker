@@ -56,7 +56,7 @@
                  };
                  if (fileObj !== null && fileObj !== undefined){
                      self.OptionsService.addTempFile(fileObj);
-                     self.location.path('/fetched_image_preview');
+                     self.location.path('/fetched_file_preview');
                      self.forceUpdateView();
                  }
              }

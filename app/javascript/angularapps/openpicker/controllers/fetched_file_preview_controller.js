@@ -1,4 +1,4 @@
- FetchedImagePreviewController = function($scope, $timeout, $http, DataAccessService, $sce, $filter, $location, Upload, OptionsService, LogService) {
+ FetchedFilePreviewController = function($scope, $timeout, $http, DataAccessService, $sce, $filter, $location, Upload, OptionsService, LogService) {
      var self = this;
 
      self.scope = $scope;
@@ -19,7 +19,7 @@
      self.initialize();
  };
 
- FetchedImagePreviewController.prototype.setupScopeMethods = function() {
+ FetchedFilePreviewController.prototype.setupScopeMethods = function() {
      var self = this;
      self.scope.uploadImage = function(){
           var file = self.scope.images[0];
@@ -39,7 +39,7 @@
      };
  };
 
- FetchedImagePreviewController.prototype.initialize = function() {
+ FetchedFilePreviewController.prototype.initialize = function() {
      var self = this;
      self.scope.channels = self.OptionsService.getChannels();
      self.scope.options = self.OptionsService.getOptions();
@@ -49,7 +49,7 @@
      self.forceUpdateView();
  };
 
- FetchedImagePreviewController.prototype.forceUpdateView = function(first_argument) {
+ FetchedFilePreviewController.prototype.forceUpdateView = function(first_argument) {
 
      var self = this;
      self.timeout(function() {
@@ -57,4 +57,4 @@
      });
  };
 
- app.controller('FetchedImagePreviewController', FetchedImagePreviewController);
+ app.controller('FetchedFilePreviewController', FetchedFilePreviewController);

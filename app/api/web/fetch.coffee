@@ -37,7 +37,7 @@ exports.init = (app) ->
 					console.error(err)
 				else
 					console.log "got headers"
-					console.log req.headers
+					console.log res.headers
 					content_type = res.headers["content-type"]
 					content_size = parseInt(res.headers["content-length"])
 					if reqURL.match(mimeRegex) || content_type.match(mimeRegex)
