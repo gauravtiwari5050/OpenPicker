@@ -74,7 +74,8 @@ else{$('#uploadedFile').attr('src',openpickerResponse.file.url);$('#uploadedFile
           <div class="sidebar-module sidebar-module-inset" style="text-align:center">
             <h4>Try Uploading a File</h4>
             <div> 
-              <button id="button" class="btn btn-success"> Upload An Image </button>
+              <button id="buttonImage" class="btn btn-success"> Upload an Image </button>
+              <button id="buttonFile" class="btn btn-success"> Upload a File </button>
             </div>
             <div style="padding: 5px; margin-right: 10px;">
               <iframe id="uploadedFile" src="" width="500" height="300" style="display: none;"></iframe>
@@ -98,19 +99,20 @@ else{$('#uploadedFile').attr('src',openpickerResponse.file.url);$('#uploadedFile
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-      var allowedMimeTypes = "image/*";
-      $('#button').click(function(){
-          window.openpicker.getFiles({mimetypes: allowedMimeTypes ,conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
+      $('#buttonImage').click(function(){
+          window.openpicker.getFiles({mimetypes: "image/*" ,conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
             console.log("Open Picker Response is");
             console.log(openpickerResponse);
-            if(allowedMimeTypes == "image/*"){
               $('#uploadedImage').attr('src',openpickerResponse.file.url);
               $('#uploadedImage').show();
-            }
-            else{
+          });
+      });      
+      $('#buttonFile').click(function(){
+          window.openpicker.getFiles({mimetypes: "*/*" ,conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
+            console.log("Open Picker Response is");
+            console.log(openpickerResponse);
               $('#uploadedFile').attr('src',openpickerResponse.file.url);
               $('#uploadedFile').show();         
-            }
           });
       });
     </script>

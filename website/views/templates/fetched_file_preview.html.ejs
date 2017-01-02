@@ -6,7 +6,7 @@
             <div class="form-group">
               <div ng-repeat="file in files">
                 <iframe  ng-src="{{file.src}}" width="500" height="300" ng-if="!isImage"></iframe>
-                <img  ng-src="{{file.src}}" style="width: 100%;height: auto; max-height: 400px; max-width: 400px;" ng-if="isImage">
+                <img class="img-responsive" ng-src="{{file.src}}" ng-if="isImage" style="max-height: 300px;max-width: 400px;">
                 <p>The file is {{file.size}} in size.</p>
                 <p>Do you wish to use this file?</p>
               </div>

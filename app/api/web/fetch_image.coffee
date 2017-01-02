@@ -6,6 +6,7 @@ request = require('request')
 csrf = require('csurf')
 async = require('async')
 prettysize = require('prettysize')
+path = require('path')
 tmpDir = appconfig.getTemporaryDirectory()
 fileLimits = appconfig.getFileLimits()
 filestores = {}
@@ -16,11 +17,8 @@ exports.init = (app) ->
 	app.post '/fetch/image', csrf({ cookie:true }), (req,res) ->
 		#check request came
 		console.log "Request recieved"
-		#set file name from req.body
-		fileName = req.body.fileName
-		#if file name doesn't exist 
-		if !fileName?
-			fileName = ""
+		#Extract image name from URL
+		fileName = path.basename(req.body.url)
 		#Remove unnecessary characters and spaces in the file
 		fileName = fileName.replace(/@[^0-9a-z\.]+@i/g, "-")
 		fileName = fileName.replace(/\ +/g, "-")
@@ -77,10 +75,10 @@ exports.init = (app) ->
 								message: "Maximum Upload Size Exceeded"
 							callback(null)
 					else
-						console.log "Content-Type not valid"
+						console.log "Invalid File Type : Not Image"
 						responseObject = 
 							error: true
-							message: "Content-Type not valid"
+							message: "Invalid File Type : Not Image"
 						callback(null)
 			)
 		async.each reqURL, fetchImage, () ->

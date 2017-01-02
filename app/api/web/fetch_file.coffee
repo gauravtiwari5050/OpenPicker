@@ -6,6 +6,7 @@ request = require('request')
 csrf = require('csurf')
 async = require('async')
 prettysize = require('prettysize')
+path = require('path')
 tmpDir = appconfig.getTemporaryDirectory()
 fileLimits = appconfig.getFileLimits()
 filestores = {}
@@ -17,10 +18,7 @@ exports.init = (app) ->
 		#check request came
 		console.log "Request recieved"
 		#set file name from req.body
-		fileName = req.body.fileName
-		#if file name doesn't exist 
-		if !fileName?
-			fileName = ""
+		fileName = path.basename(req.body.url)
 		#Remove unnecessary characters and spaces in the file
 		fileName = fileName.replace(/@[^0-9a-z\.]+@i/g, "-")
 		fileName = fileName.replace(/\ +/g, "-")
@@ -86,10 +84,10 @@ exports.init = (app) ->
 								message: "Maximum Upload Size Exceeded"
 							callback(null)
 					else
-						console.log "Content-Type not valid"
+						console.log "Invalid File Type"
 						responseObject = 
 							error: true
-							message: "Content-Type not valid"
+							message: "Invalid File Type"
 						callback(null)
 			)
 		async.each reqURL, fetchFile, () ->
