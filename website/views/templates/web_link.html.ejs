@@ -2,25 +2,26 @@
   <div class="container-fluid fill">
     <div class="row fill">
        <div class="col-sm-9 col-sm-push-3 fill" style="padding: 10px;">
-          <form style="margin-top:20px;">
-            <div class="form-group">
-              <label>File Name</label>
-              <input type="text" class="form-control" ng-model="file.name" placeholder="cats">
-              <p style="color:green;">avoid file extensions like .jpg,.png etc.</p>
-            </div>            
-            <div class="form-group">
-              <label>Url</label>
-              <input type="text" class="form-control" ng-model="file.src" placeholder="http://something.com/image.jpg">
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary" ng-click="fetch()">Fetch File</button>
-            </div>
-          </form>
-          <div ng-if="showLoader" style="text-align: center; margin-top: 100px;">
-            <img src="../../ring.gif">
+          <div style="color: #7f9094;font-size: 16px; position: fixed;" ng-show="!showLoader">Files from the Web</div>
+          <div style="margin: 70px auto;width: 50%;float: none; border: 3px dashed rgba(204, 204, 204, 0.8);" ng-show="!showLoader">
+            <form style="float: none;margin: 50px;">
+              <div style="color: #809395;">
+                  Just provide the link.
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" ng-model="file.src" style="border-radius:1px;" placeholder="http://something.com/image.jpg">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary" style="border-radius: 14px; " ng-click="fetch()">Search</button>
+              </div>
+            </form>
           </div>
-          <div ng-if="uploadError.error == true" style="text-align:center;margin-top:20px" class="alert alert-danger">
-            <p>{{uploadError.message}}</p> <p>Please try again.</p>
+          <div style="margin: 160px auto; text-align: center; font-size: 16px;s" ng-if="showLoader">
+            <img src="../../loader.gif">
+            <div>Loading..</div>
+          </div>
+          <div ng-if="uploadError.error == true" class="alert alert-danger">
+            <p>{{uploadError.message}}. Please try again.</p>
           </div>
        </div>
        <div class="col-sm-3 col-sm-pull-9  fill toc" style="overflow:auto">

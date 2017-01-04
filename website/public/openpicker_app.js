@@ -5853,6 +5853,9 @@ app.controller('PrimaryController',PrimaryController);
              self.scope.showLoader = false;
              if (response.data.error) {
                  self.scope.uploadError = response.data;
+                 self.timeout(function() {
+                    self.scope.uploadError.error = false;
+                 }, 5000);
              } else {
                  var fileObj = {
                      path: response.data.path,
@@ -5920,7 +5923,7 @@ app.controller('PrimaryController',PrimaryController);
  FetchedFilePreviewController.prototype.setupScopeMethods = function() {
      var self = this;
      self.scope.uploadFile = function(){
-          var file = self.scope.files[0];
+          var file = self.scope.file;
           self.http.get(file.src, {responseType: 'arraybuffer'}).then(function(response){
                var blob = new Blob([response.data], {type:file.type}, "1.0");
                blob.name = file.name;
@@ -5944,7 +5947,9 @@ app.controller('PrimaryController',PrimaryController);
      self.scope.limits = self.OptionsService.getLimits();
      self.scope.files = self.OptionsService.getTempFiles();
 
-     if(self.scope.files[0].type.match(/image\/.*/i))
+     self.scope.file = self.scope.files[0];
+
+     if(self.scope.file.type.match(/image\/.*/i))
           self.scope.isImage = true;
      else
           self.scope.isImage = false;

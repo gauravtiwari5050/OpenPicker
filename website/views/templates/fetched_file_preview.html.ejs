@@ -1,24 +1,21 @@
   <%include ../partials/navbar.html.ejs%>
-  <div class="container-fluid fill" style="padding: 10px;">
+  <div class="container-fluid fill">
     <div class="row fill">
-       <div class="col-sm-9 col-sm-push-3 fill" style="padding: 10px;text-align: center;">
-          <form class="form-inline">
+       <div class="col-sm-9 col-sm-push-3 fill" style="padding: 10px;">
+       <div style="color: #7f9094;font-size: 16px;">Files from the Web</div>
+        <div style="border: 3px dashed rgba(204, 204, 204, 0.8); margin: auto; width: 70%;">
+          <form style="margin: 10px;">
             <div class="form-group">
-              <div ng-repeat="file in files">
-                <iframe  ng-src="{{file.src}}" width="500" height="300" ng-if="!isImage"></iframe>
-                <img class="img-responsive" ng-src="{{file.src}}" ng-if="isImage" style="max-height: 300px;max-width: 400px;">
-                <p>The file is {{file.size}} in size.</p>
-                <p>Do you wish to use this file?</p>
-              </div>
+              <iframe  ng-src="{{file.src}}" ng-if="!isImage" style="margin: 0px auto;height: 300px;width: 400px;display: block;"></iframe>
+              <img class="img-responsive" ng-src="{{file.src}}" ng-if="isImage" style="margin: 0px auto;max-height: 300px;max-width: 400px;">
+              <div style="color: #809395;margin: 0px auto;">{{file.name || N/A}}, Size: {{file.size}}</div>
             </div>
-          </form>
-          <div>
-            <button type="submit" class="btn btn-primary" ng-model="files.name" ng-click="uploadFile()">Use This file</button>
-            <p style="color: red;">Make sure you have sufficient access-rights/permissions to use this file.</p>
-          </div>
-          <div ng-if="uploadError == true" style="text-align:center;margin-top:20px" class="alert alert-danger">
-            <p>Some of the files you selected exceed file limits </p><p>or are not allowed to be uploaded. </p> <p>Please try again.</p>
-          </div>
+            <div class="form-group">
+             <button type="submit" class="btn btn-primary" ng-model="files.name" style="border-radius: 14px;"><a style="text-decoration: none;color: inherit;" href="/app#!/channels/web_link">Cancel</a></button>  
+             <button type="submit" class="btn btn-primary" ng-model="files.name" style="border-radius: 14px;" ng-click="uploadFile()">Select</button>            
+            </div>
+          </form>          
+       </div>       
        </div>
        <div class="col-sm-3 col-sm-pull-9  fill toc" style="overflow:auto">
          <%include ../partials/toc.html.ejs%>

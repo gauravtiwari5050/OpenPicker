@@ -47,6 +47,9 @@
              self.scope.showLoader = false;
              if (response.data.error) {
                  self.scope.uploadError = response.data;
+                 self.timeout(function() {
+                    self.scope.uploadError.error = false;
+                 }, 5000);
              } else {
                  var fileObj = {
                      path: response.data.path,

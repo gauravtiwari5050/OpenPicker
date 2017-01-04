@@ -127,6 +127,12 @@ And of course OpenOpicker itself is open source with a [public repository][openp
  - Add more channels
  - Add more filestores
 
+Contributors
+-------------
+
+ - [Gaurav Tiwari]: <https://github.com/gauravtiwari5050>
+ - [Mohd Sanad Zaki Rizvi]: <https://github.com/mohdsanadzakirizvi>
+
 License
 ----
 
