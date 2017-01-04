@@ -49,10 +49,6 @@ exports.init = (app) ->
 					#Content Type Validation. Checks URL with mimeRegex or content header with fileRegex
 					if reqURL.match(mimeRegex) || content_type.match(fileRegex)
 						console.log "content-type is valid"
-						#If extension found using mimeRegex, attach it else ignore
-						extension = (reqURL.match(mimeRegex) || content_type.match(mimeRegex)).pop()
-						if extension
-							fileName = fileName+'.'+extension
 						#Content Size Validation
 						if content_size <= fileLimits.maxSize || isNaN content_size
 							console.log "content within size or no content-length header present"
