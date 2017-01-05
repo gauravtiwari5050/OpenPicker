@@ -2,13 +2,13 @@
   <div class="container-fluid fill">
     <div class="row fill">
        <div class="col-sm-9 col-sm-push-3 fill" style="padding: 10px;">
-       <div style="color: #7f9094;font-size: 16px;">Files from the Web</div>
+       <div style="color: #7f9096;font-size: 16px;">Files from the Web</div>
         <div style="border: 3px dashed rgba(204, 204, 204, 0.8); margin: auto; width: 70%;">
           <form style="margin: 10px;">
             <div class="form-group">
               <iframe  ng-src="{{file.src}}" ng-if="!isImage" style="margin: 0px auto;height: 300px;width: 400px;display: block;"></iframe>
               <img class="img-responsive" ng-src="{{file.src}}" ng-if="isImage" style="margin: 0px auto;max-height: 300px;max-width: 400px;">
-              <div style="color: #809395;margin: 0px auto;">{{file.name || N/A}}, Size: {{file.size}}</div>
+              <div style="color: #809393;margin: 0px auto;">{{file.name || N/A}}, Size: {{file.size}}</div>
             </div>
             <div class="form-group">
              <button type="submit" class="btn btn-danger" ng-model="files.name" style="border-radius: 14px;"><a style="text-decoration: none;color: inherit;" href="/app#!/channels/web_link">Cancel</a></button>  
