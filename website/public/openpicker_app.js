@@ -5835,6 +5835,7 @@ app.controller('PrimaryController',PrimaryController);
         
          self.scope.showLoader = true;
          self.scope.uploadError = false;
+         self.scope.urlRegex = /^(http:\/\/|https:\/\/)/i;
 
          var postData = {
              url: self.scope.file.src,
