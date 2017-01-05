@@ -32,7 +32,11 @@ exports.init = (app) ->
 			dataSize = 0
 			request(reqURL,{method : 'HEAD'}, (err, res) ->
 				if err
-					console.error(err)
+					console.error err
+					responseObject =
+						error: true
+						message: err.message
+					callback(null)
 				else
 					console.log "got headers"
 					content_type = res.headers["content-type"]
