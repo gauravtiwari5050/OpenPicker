@@ -29,6 +29,7 @@
         
          self.scope.showLoader = true;
          self.scope.uploadError = false;
+         self.scope.showError = true;
          self.scope.urlRegex = /^(http:\/\/|https:\/\/)/i;
 
          var postData = {

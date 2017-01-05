@@ -4,16 +4,17 @@
        <div class="col-sm-9 col-sm-push-3 fill" style="padding: 10px;">
           <div style="color: #7f9096;font-size: 16px; position: fixed;" ng-show="!showLoader">Files from the Web</div>
           <div style="margin: 70px auto;width: 50%;float: none; border: 3px dashed rgba(204, 204, 204, 0.8);" ng-show="!showLoader">
-            <form style="float: none;margin: 50px;" name="form">
+            <form style="float: none;margin: 50px;" name="webLinkForm">
               <div style="color: #809393;">
                 Provide the web link.
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" ng-model="file.src" name="src_input" style="border-radius:1px;" ng-pattern="urlRegex" placeholder="http://something.com/image.jpg">
-                <div ng-if="form.src_input.$invalid" style="color: #809393;">Did you forget to add http:// or https:// ?</div>
+                <input type="text" class="form-control" ng-model="file.src" name="src_input" style="border-radius:1px;" ng-pattern="urlRegex" placeholder="http://something.com/image.jpg" required>
+                <div ng-if="webLinkForm.src_input.$invalid && showError" style="color: #809393;">Did you forget to add http:// or https://</div>
+                <div ng-if="webLinkForm.src_input.$error.required" style="color: #f33737;">*required.</div>
               </div>
               <div class="form-group">
-                <button type="submit" class="btn btn-success" style="border-radius: 14px; " ng-click="fetch()" ng-disabled="form.$invalid || form.src_input.$pristine">Search</button>
+                <button type="submit" class="btn btn-success" style="border-radius: 14px; " ng-click="fetch()" ng-disabled="webLinkForm.src_input.$invalid || webLinkForm.src_input.$error.required">Search</button>
               </div>
             </form>
           </div>
