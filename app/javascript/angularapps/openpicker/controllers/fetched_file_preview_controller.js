@@ -21,6 +21,9 @@
  FetchedFilePreviewController.prototype.setupScopeMethods = function() {
      var self = this;
      self.scope.uploadFile = function(){
+          
+          self.OptionsService.clearTempFiles();
+
           var file = self.scope.file;
           self.http.get(file.src, {responseType: 'arraybuffer'}).then(function(response){
                var blob = new Blob([response.data], {type:file.type}, "1.0");
@@ -39,7 +42,10 @@
  };
 
  FetchedFilePreviewController.prototype.initialize = function() {
-     var self = this;
+     var self = this,
+         imageRegex = /image\/.*/i,
+         viewableFileRegex = /(mp4|mp3|mpeg|pdf)$/i;
+
      self.scope.channels = self.OptionsService.getChannels();
      self.scope.options = self.OptionsService.getOptions();
      self.scope.limits = self.OptionsService.getLimits();
@@ -47,10 +53,15 @@
 
      self.scope.file = self.scope.files[0];
 
-     if(self.scope.file.type.match(/image\/.*/i))
+     if(self.scope.file.type.match(imageRegex))
           self.scope.isImage = true;
-     else
+     else{
           self.scope.isImage = false;
+          if(self.scope.file.type.match(viewableFileRegex))
+               self.scope.isViewable = true;
+          else
+               self.scope.isViewable = false;
+     }
 
      self.forceUpdateView();
  };

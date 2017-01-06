@@ -40,7 +40,7 @@
          headerData = {'x-csrf-token':$('meta[name=csrf]').attr("content")},
          requestData = {
             method: 'POST',
-            url: self.scope.postURL,
+            url: '/fetch/',
             headers: headerData,
             data: postData
          };
@@ -77,12 +77,6 @@
      self.scope.options = self.OptionsService.getOptions();
      self.scope.limits = self.OptionsService.getLimits();
      self.scope.files = [];
-
-     if(self.scope.options.mimetypes.match(/image\/.*/i))
-        self.scope.postURL = '/fetch/image';
-     else
-        self.scope.postURL = '/fetch/';
-
 
      self.forceUpdateView();
  };

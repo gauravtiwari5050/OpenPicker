@@ -5344,6 +5344,10 @@ app.service('OptionsService', function() {
 
   var clearFiles = function() {
     fileList = [];
+  }  
+
+  var clearTempFiles = function() {
+    tempFileList = [];
   }
 
   var updateChannels = function(newChannels){
@@ -5377,6 +5381,7 @@ app.service('OptionsService', function() {
     addTempFile: addTempFile,
     getTempFiles: getTempFiles,
     clearFiles : clearFiles,
+    clearTempFiles : clearTempFiles,
     updateFileBlob: updateFileBlob,
     updateOptions : updateOptions,
     getOptions : getOptions,
@@ -5846,7 +5851,7 @@ app.controller('PrimaryController',PrimaryController);
          headerData = {'x-csrf-token':$('meta[name=csrf]').attr("content")},
          requestData = {
             method: 'POST',
-            url: self.scope.postURL,
+            url: '/fetch/',
             headers: headerData,
             data: postData
          };
@@ -5884,12 +5889,6 @@ app.controller('PrimaryController',PrimaryController);
      self.scope.limits = self.OptionsService.getLimits();
      self.scope.files = [];
 
-     if(self.scope.options.mimetypes.match(/image\/.*/i))
-        self.scope.postURL = '/fetch/image';
-     else
-        self.scope.postURL = '/fetch/';
-
-
      self.forceUpdateView();
  };
 
@@ -5925,6 +5924,9 @@ app.controller('PrimaryController',PrimaryController);
  FetchedFilePreviewController.prototype.setupScopeMethods = function() {
      var self = this;
      self.scope.uploadFile = function(){
+          
+          self.OptionsService.clearTempFiles();
+
           var file = self.scope.file;
           self.http.get(file.src, {responseType: 'arraybuffer'}).then(function(response){
                var blob = new Blob([response.data], {type:file.type}, "1.0");
@@ -5943,7 +5945,10 @@ app.controller('PrimaryController',PrimaryController);
  };
 
  FetchedFilePreviewController.prototype.initialize = function() {
-     var self = this;
+     var self = this,
+         imageRegex = /image\/.*/i,
+         viewableFileRegex = /(mp4|mp3|mpeg|pdf)$/i;
+
      self.scope.channels = self.OptionsService.getChannels();
      self.scope.options = self.OptionsService.getOptions();
      self.scope.limits = self.OptionsService.getLimits();
@@ -5951,10 +5956,15 @@ app.controller('PrimaryController',PrimaryController);
 
      self.scope.file = self.scope.files[0];
 
-     if(self.scope.file.type.match(/image\/.*/i))
+     if(self.scope.file.type.match(imageRegex))
           self.scope.isImage = true;
-     else
+     else{
           self.scope.isImage = false;
+          if(self.scope.file.type.match(viewableFileRegex))
+               self.scope.isViewable = true;
+          else
+               self.scope.isViewable = false;
+     }
 
      self.forceUpdateView();
  };

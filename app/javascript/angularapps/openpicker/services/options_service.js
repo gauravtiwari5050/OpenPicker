@@ -57,6 +57,10 @@ app.service('OptionsService', function() {
 
   var clearFiles = function() {
     fileList = [];
+  }  
+
+  var clearTempFiles = function() {
+    tempFileList = [];
   }
 
   var updateChannels = function(newChannels){
@@ -90,6 +94,7 @@ app.service('OptionsService', function() {
     addTempFile: addTempFile,
     getTempFiles: getTempFiles,
     clearFiles : clearFiles,
+    clearTempFiles : clearTempFiles,
     updateFileBlob: updateFileBlob,
     updateOptions : updateOptions,
     getOptions : getOptions,

@@ -10,7 +10,8 @@ path = require('path')
 tmpDir = appconfig.getTemporaryDirectory()
 fileLimits = appconfig.getFileLimits()
 filestores = {}
-mimeRegex = /.(avi|wmv|flv|mpg|3gp|mkv|mp4|mpeg|mpeg-1|mpeg-2|mpeg-3|mpeg-4|mp3|wav|xlsx?|zip|7z|docx?|pptx?|pdf)$/i
+imageRegex = /.(jpe?g|png|gif)$/i
+mimeRegex = /.(avi|wmv|flv|mpg|3gp|mkv|mp4|mpeg|mpeg-1|mpeg-2|mpeg-3|mpeg-4|mp3|wav|xlsx?|zip|7z|docx?|pptx?|pdf|jpe?g|png|gif)$/i
 
 exports.init = (app) ->
 	
@@ -49,7 +50,7 @@ exports.init = (app) ->
 					console.log res.headers
 					#If Content-Type not found , set it to null
 					if !content_type?
-						content_type = ""
+						content_type = if reqURL.match(imageRegex) then "image/jpeg" else ""
 					#Content Type Validation. Checks URL with mimeRegex or content header with fileRegex
 					if reqURL.match(mimeRegex) || content_type.match(fileRegex)
 						console.log "content-type is valid"
