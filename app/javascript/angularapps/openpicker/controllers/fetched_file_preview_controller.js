@@ -7,10 +7,7 @@
      self.location = $location;
      self.OptionsService = OptionsService;
 
-
-
      self.setupScopeMethods();
-
      self.initialize();
  };
 
@@ -33,6 +30,7 @@
              self.location.path('/upload');
 
           self.forceUpdateView();
+          
           });
      };
  };
