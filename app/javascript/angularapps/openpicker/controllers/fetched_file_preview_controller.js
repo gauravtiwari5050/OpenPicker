@@ -1,16 +1,12 @@
- FetchedFilePreviewController = function($scope, $timeout, $http, DataAccessService, $sce, $filter, $location, Upload, OptionsService, LogService) {
+ FetchedFilePreviewController = function($scope, $timeout, $http, $location, OptionsService) {
      var self = this;
 
      self.scope = $scope;
      self.timeout = $timeout;
      self.http = $http;
-     self.sce = $sce;
      self.location = $location;
-     self.Upload = Upload;
      self.OptionsService = OptionsService;
-     self.logger = new LogService();
 
-     self.data_access_service = new DataAccessService();
 
 
      self.setupScopeMethods();
