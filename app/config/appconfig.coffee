@@ -35,7 +35,21 @@ class Appconfig
 			temporaryDirectory = "#{process.cwd()}/.tmp"
 		if !fs.existsSync(temporaryDirectory)
 			fs.mkdirSync(temporaryDirectory)
-		return temporaryDirectory
+		return temporaryDirectory	
+
+	getMimeRegex: () ->
+		key = "ALLOWED_MIME_TYPES_REGEX"
+		mimeRegex = this.getProperty(key)
+		if !mimeRegex?
+			mimeRegex = /.(avi|wmv|flv|mpg|3gp|mkv|mp4|mpeg|mpeg-1|mpeg-2|mpeg-3|mpeg-4|mp3|wav|xlsx?|zip|7z|docx?|pptx?|pdf|jpe?g|png|gif)$/i
+		return mimeRegex
+
+	getImageRegex: () ->
+		key = "ALLOWED_IMAGE_TYPES_REGEX"
+		imageRegex = this.getProperty(key)
+		if !imageRegex?
+			imageRegex = /.(jpe?g|png|gif)$/i
+		return imageRegex
 		
 	getFileStores: () ->
 		key = "FILESTORES"

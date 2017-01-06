@@ -9,8 +9,8 @@ prettysize = require('prettysize')
 path = require('path')
 tmpDir = appconfig.getTemporaryDirectory()
 fileLimits = appconfig.getFileLimits()
-imageRegex = /.(jpe?g|png|gif)$/i
-mimeRegex = /.(avi|wmv|flv|mpg|3gp|mkv|mp4|mpeg|mpeg-1|mpeg-2|mpeg-3|mpeg-4|mp3|wav|xlsx?|zip|7z|docx?|pptx?|pdf|jpe?g|png|gif)$/i
+imageRegex = appconfig.getImageRegex()
+mimeRegex = appconfig.getMimeRegex()
 
 exports.init = (app) ->
 	
