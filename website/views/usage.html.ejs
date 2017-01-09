@@ -80,8 +80,9 @@
             <div style="padding: 5px; margin-right: 10px;">
               <iframe id="uploadedFile" src="" width="500" height="300" style="display: none;"></iframe>
               <img id="uploadedImage" src="" style="display: none; width: 100%; height: auto;">
+              <span id="generalUploadedFile" class="glyphicon glyphicon-file" style=" display:none; font-size: 100px;width: 50px;margin: 20px 100px;color: #b1adad;"></span>
+              <p id="fileName" style="display: none; text-align: center;color: #809393;"></p>
             </div>
-            <p></p>
           </div>
         </div><!-- /.blog-sidebar -->
 
@@ -105,14 +106,24 @@
             console.log(openpickerResponse);
               $('#uploadedImage').attr('src',openpickerResponse.file.url);
               $('#uploadedImage').show();
+              $('#fileName').html(openpickerResponse.file.name);
+              $('#fileName').show();
           });
       });      
       $('#buttonFile').click(function(){
           window.openpicker.getFiles({mimetypes: "*/*" ,conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
             console.log("Open Picker Response is");
             console.log(openpickerResponse);
+            //check whether the file is viewable natively avaialable browser
+            if(openpickerResponse.file.name.match(/(mp4|mp3|mpeg|pdf)$/i)){
               $('#uploadedFile').attr('src',openpickerResponse.file.url);
-              $('#uploadedFile').show();         
+              $('#uploadedFile').show();
+            }  
+            else{
+              $('#generalUploadedFile').show();
+            } 
+            $('#fileName').html(openpickerResponse.file.name);
+            $('#fileName').show();
           });
       });
     </script>
