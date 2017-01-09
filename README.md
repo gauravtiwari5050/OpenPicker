@@ -119,6 +119,8 @@ OpenPicker uses a number of open source projects to work properly:
 * [Twitter Bootstrap] - great UI boilerplate for modern web apps
 * [node.js] - evented I/O for the backend
 * [Express] - fast node.js network app framework [@tjholowaychuk]
+* [Request] - Simplified HTTP client.
+* [Pretty Size] - Helper utility to provide pretty printed file sizes (best used for logging or CLI output).
 
 And of course OpenOpicker itself is open source with a [public repository][openpicker]
  on GitHub.
@@ -132,8 +134,8 @@ And of course OpenOpicker itself is open source with a [public repository][openp
 Contributors
 -------------
 
- - [Gaurav Tiwari]: <https://github.com/gauravtiwari5050>
- - [Mohd Sanad Zaki Rizvi]: <https://github.com/mohdsanadzakirizvi>
+ - [Gaurav Tiwari](<https://github.com/gauravtiwari5050>)
+ - [Mohd Sanad Zaki Rizvi](<https://github.com/mohdsanadzakirizvi>)
 
 License
 ----
@@ -155,5 +157,6 @@ MIT
    [express]: <http://expressjs.com>
    [AngularJS]: <http://angularjs.org>
    [@andrewrk]: <https://github.com/andrewrk>
-
+   [Request]: https://github.com/request/request
+   [Pretty Size]: https://github.com/davglass/prettysize
 
