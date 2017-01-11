@@ -41,7 +41,7 @@ class Appconfig
 		key = "ALLOWED_MIME_TYPES_REGEX"
 		mimeRegex = this.getProperty(key)
 		if !mimeRegex?
-			mimeRegex = /.(avi|wmv|flv|mpg|3gp|mkv|mp4|mpeg|mpeg-1|mpeg-2|mpeg-3|mpeg-4|mp3|wav|xlsx?|zip|7z|docx?|pptx?|pdf|jpe?g|png|gif|csv)$/i
+			mimeRegex = /.(avi|wmv|flv|mpg|3gp|mkv|mp4|mpeg|mpeg-1|mpeg-2|mpeg-3|mpeg-4|mp3|wav|xlsx?|zip|7z|docx?|pptx?|pdf|jpe?g|png|gif|csv|comma-separated-values)$/i
 		return mimeRegex
 
 	getImageRegex: () ->

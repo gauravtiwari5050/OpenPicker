@@ -88,7 +88,7 @@ FILESTORES=disk,s3 <comma seperated list, default: disk, only s3 and disk are su
 UPLOAD_DIRECTORY=<full path to disk location where you want to save files, default is ./uploads>
 TEMPORARY_DIRECTORY=<full path to disk location where you want to save files temporarily, default is ./tmp> 
 
-ALLOWED_MIME_TYPES_REGEX = regex to give allowed mime types , default is `/.(avi|wmv|flv|mpg|3gp|mkv|mp4|mpeg|mpeg-1|mpeg-2|mpeg-3|mpeg-4|mp3|wav|xlsx?|zip|7z|docx?|pptx?|pdf|jpe?g|png|gif)$/i`
+ALLOWED_MIME_TYPES_REGEX = regex to give allowed mime types , default is `/.(avi|wmv|flv|mpg|3gp|mkv|mp4|mpeg|mpeg-1|mpeg-2|mpeg-3|mpeg-4|mp3|wav|xlsx?|zip|7z|docx?|pptx?|pdf|jpe?g|png|gif|csv|comma-separated-values)$/i`
 ALLOWED_IMAGE_TYPES_REGEX = regex to give allowed image types , default is `/.(jpe?g|png|gif)$/i`
 MIN_SIZE=minimum file size in bytes
 
