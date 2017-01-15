@@ -55,11 +55,15 @@
 
           <div class="blog-post">
             <h2 class="blog-post-title">Use OpenPicker</h2>
-            <textarea class="form-control" rows="6" readonly>
-    window.openpicker.getFiles({mimetypes: &quot;image/*&quot;,conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
-      console.log(openpickerResponse);
-      $('#image').attr('src',openpickerResponse.file.url);
-    });
+            <textarea class="form-control" rows="9" readonly>
+      $('#buttonImage').click(function(){
+          window.openpicker.getFiles({mimetypes: "image/*" ,conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
+            console.log("Open Picker Response is");
+            console.log(openpickerResponse);
+              $('#uploadedImage').attr('src',openpickerResponse.file.url);
+              $('#uploadedImage').show();
+          });
+      });
             </textarea>
           </div><!-- /.blog-post -->
 
@@ -70,9 +74,15 @@
           <div class="sidebar-module sidebar-module-inset" style="text-align:center">
             <h4>Try Uploading a File</h4>
             <div> 
-              <button id="button" class="btn btn-success"> Upload An Image </button>
+              <button id="buttonImage" class="btn btn-success btn-md" style="width: 140px; height: 37px;"> Upload Image </button>
+              <button id="buttonFile" class="btn btn-success btn-md" style="width: 140px; height: 37px;"> Upload a File </button>
             </div>
-            <img id="image"src="" style="width:100%;height:auto;padding-top:20px"></img>
+            <div style="padding: 5px; margin-right: 10px;">
+              <iframe id="uploadedFile" src="" width="500" height="300" style="display: none;"></iframe>
+              <img id="uploadedImage" src="" style="display: none; width: 100%; height: auto;">
+              <span id="generalUploadedFile" class="glyphicon glyphicon-file" style=" display:none; font-size: 100px;width: 50px;margin: 20px 100px;color: #b1adad;"></span>
+              <p id="fileName" style="display: none; text-align: center;color: #809393;"></p>
+            </div>
           </div>
         </div><!-- /.blog-sidebar -->
 
@@ -90,14 +100,31 @@
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-      $('#button').click(function(){
-          
-          window.openpicker.getFiles({mimetypes: "image/*",conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
-            console.log("Open Picker Resonse is");
+      $('#buttonImage').click(function(){
+          window.openpicker.getFiles({mimetypes: "image/*" ,conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
+            console.log("Open Picker Response is");
             console.log(openpickerResponse);
-            $('#image').attr('src',openpickerResponse.file.url);
+              $('#uploadedImage').attr('src',openpickerResponse.file.url);
+              $('#uploadedImage').show();
+              $('#fileName').html(openpickerResponse.file.name);
+              $('#fileName').show();
           });
-          
+      });      
+      $('#buttonFile').click(function(){
+          window.openpicker.getFiles({mimetypes: "*/*" ,conversions:['crop','rotate'],cropRatio: 1/1},function(openpickerResponse){
+            console.log("Open Picker Response is");
+            console.log(openpickerResponse);
+            //check whether the file is viewable natively avaialable browser
+            if(openpickerResponse.file.name.match(/(mp4|mp3|mpeg|pdf)$/i)){
+              $('#uploadedFile').attr('src',openpickerResponse.file.url);
+              $('#uploadedFile').show();
+            }  
+            else{
+              $('#generalUploadedFile').show();
+            } 
+            $('#fileName').html(openpickerResponse.file.name);
+            $('#fileName').show();
+          });
       });
     </script>
 

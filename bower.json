@@ -1,7 +1,7 @@
 {
   "name": "openpicker",
   "dependencies": {
-    "jquery": "latest",
+    "jquery": "v2.2.2",
     "underscore": "latest",
     "async": "latest",
     "angular": "latest",

@@ -43,6 +43,7 @@ exports.startApis = (err, results) ->
 
 	app.use(express.static(path.join(__dirname, '../../website/public')))
 	app.use(express.static(appconfig.getUploadDirectory()))
+	app.use(express.static(appconfig.getTemporaryDirectory()))
 
 	app.listen port, ->
 		console.log("Listening on #{port}")

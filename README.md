@@ -84,13 +84,17 @@ OpenPicker defaults to picking Image
 OpenPicker expects a properties.conf file in the working directory. You can set the following options. You can set all the options in environment variables as well. Environment variables are given preference if set while reading a property.
 ```sh
 FILESTORES=disk,s3 <comma seperated list, default: disk, only s3 and disk are supported as of now>
+UPLOAD_DIRECTORY=<full path to disk location where you want to save files, default is ./uploads>
+TEMPORARY_DIRECTORY=<full path to disk location where you want to save files temporarily, default is ./tmp> 
 
-UPLPOAD_DIRECTORY=<full path to disk location where you want to save files, default is ./uploads>
+ALLOWED_MIME_TYPES_REGEX = regex to give allowed mime types , default is 
+/.(avi|wmv|flv|mpg|3gp|mkv|mp4|mpeg|mpeg-1|mpeg-2|mpeg-3|mpeg-4|mp3|wav|xlsx?|zip|7z|docx?|pptx?|pdf|jpe?g|png|gif|csv|comma-separated-values)$/i
+
+ALLOWED_IMAGE_TYPES_REGEX = regex to give allowed image types , default is 
+/.(jpe?g|png|gif)$/i
 
 MIN_SIZE=minimum file size in bytes
-
 MAX_SIZE=maximum file size in bytes
-
 S3_BUCKET = name of s3 bucket
 AWS_ACCESS_KEY_ID= Aws access key if you have configured s3 as a filestore
 AWS_SECRET_ACCESS_KEY = Aws secret access key
@@ -116,6 +120,8 @@ OpenPicker uses a number of open source projects to work properly:
 * [Twitter Bootstrap] - great UI boilerplate for modern web apps
 * [node.js] - evented I/O for the backend
 * [Express] - fast node.js network app framework [@tjholowaychuk]
+* [Request] - Simplified HTTP client.
+* [Pretty Size] - Helper utility to provide pretty printed file sizes (best used for logging or CLI output).
 
 And of course OpenOpicker itself is open source with a [public repository][openpicker]
  on GitHub.
@@ -125,6 +131,12 @@ And of course OpenOpicker itself is open source with a [public repository][openp
  - Write Tests
  - Add more channels
  - Add more filestores
+
+Contributors
+-------------
+
+ - [Gaurav Tiwari](<https://github.com/gauravtiwari5050>)
+ - [Mohd Sanad Zaki Rizvi](<https://github.com/mohdsanadzakirizvi>)
 
 License
 ----
@@ -146,5 +158,6 @@ MIT
    [express]: <http://expressjs.com>
    [AngularJS]: <http://angularjs.org>
    [@andrewrk]: <https://github.com/andrewrk>
-
+   [Request]: https://github.com/request/request
+   [Pretty Size]: https://github.com/davglass/prettysize
 

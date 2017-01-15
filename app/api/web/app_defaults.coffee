@@ -9,8 +9,13 @@ exports.init = (app) ->
 			unique_id : "MY_COMPUTER"
 			name: "My Computer"
 			fa_icon: "desktop"
+		web_link = 
+			unique_id : "WEB_LINK"
+			name: "Web Link"
+			fa_icon: "link"
 
 		channels.push(my_computer)
+		channels.push(web_link)
 
 		
 		responseObject =
