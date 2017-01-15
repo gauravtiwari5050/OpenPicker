@@ -29,7 +29,8 @@
     "fs-extra": "0.26.7",
     "properties-reader": "0.0.15",
     "cookie-parser": "1.4.1",
-    "csurf": "1.8.3"
+    "csurf": "1.8.3",
+    "prettysize": "0.0.3"
   },
   "devDependencies": {
     "grunt": "latest",
@@ -37,8 +38,7 @@
     "grunt-contrib-concat": "latest",
     "grunt-contrib-connect": "latest",
     "grunt-contrib-uglify": "latest",
-    "grunt-contrib-watch": "latest",
-    "prettysize": "0.0.3"
+    "grunt-contrib-watch": "latest"
   },
   "author": "gauravtiwari5050",
   "repository": {
