@@ -27,10 +27,12 @@ exports.init = (app) ->
 		#First GET request for Headers
 		responseObject = {}
 		#Check user allowed Mime Types
-		if req.body.allowedMimeTypes != "*/*"
-			fileRegex = req.body.allowedMimeTypes
-		else
+		if req.body.allowedMimeTypes == "image/*"
+			fileRegex = imageRegex
+		else if req.body.allowedMimeTypes == "*/*" 
 			fileRegex = mimeRegex
+		else
+			fileRegex = new RegExp(req.body.allowedMimeTypes)
         
 		fetchFile = (reqURL, callback) -> 
 			dataSize = 0
@@ -44,11 +46,11 @@ exports.init = (app) ->
 				else
 					content_type = res.headers["content-type"]
 					content_size = parseInt(res.headers["content-length"])
-					#If Content-Type not found , set it to null
+					#If Content-Type not found , set it to image/jpeg if the url is of image else  null
 					if !content_type?
 						content_type = if reqURL.match(imageRegex) then "image/jpeg" else ""
-					#Content Type Validation. Checks URL with mimeRegex or content header with fileRegex
-					if reqURL.match(mimeRegex) || content_type.match(fileRegex)
+					#Content Type Validation 
+					if fileRegex.test(content_type)
 						#Content Size Validation
 						if content_size <= fileLimits.maxSize || isNaN content_size
 							finalReq = request(reqURL,{method : 'GET'})
