@@ -14,6 +14,8 @@ exports.init = (app) ->
 	app.post '/upload/' ,csrf({ cookie: true }), multipartyMiddleware,(request,response) ->
 
 		file = request.files.file
+  subDirectoryPath = request.body.subDirectory
+  urlObject = {}
 		fileName = file.name
 		if !fileName?
 			fileName = ""
@@ -34,14 +36,16 @@ exports.init = (app) ->
 			if !filestores[filestore_name]?
 				filestores[filestore_name] = require("../../filestores/#{filestore_name}")
 			
-			filestores[filestore_name].upload file,fileName, (err,data) ->
-				console.log(data)
-				callback(null)
+			filestores[filestore_name].upload file,fileName, subDirectoryPath, (err,url) ->
+       console.log(url)
+       urlObject[filestore_name] = url
+				callback()
 
 		async.eachSeries filestore_names, uploadToStore , () ->
 			responseObject =
 				name : file.name
-				path : fileName
+        path : if subDirectoryPath == '' then fileName else subDirectoryPath+'/'+fileName,
+        url : urlObject
 			fs.unlinkSync(file.path)
 			util.sendJSONPResponse request,response,responseObject
 
