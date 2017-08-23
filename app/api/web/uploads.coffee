@@ -43,7 +43,7 @@ exports.init = (app) ->
     async.eachSeries filestore_names, uploadToStore , (err,data) ->
       responseObject =
         url: urlObject
-        name : file.name
+        name : fileName
         path : if subDirectoryPath == '' then fileName else subDirectoryPath+'/'+fileName
       fs.unlinkSync(file.path)
       util.sendJSONPResponse request,response,responseObject
