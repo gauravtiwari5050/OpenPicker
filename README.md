@@ -10,12 +10,14 @@ OpenPicker is an open source and self hosted file picker for your websites.
 ### Deploy to your server using npm
 ```sh
 $ npm i -g openpicker
+$ npm i -g coffeescript
 ```
 ### Start the server
 ```sh
 $ openpicker
 ```
-### Add Javascript to your site
+## USAGE
+### Include the openpicker script in your file
 ```code
 <script type="text/javascript">
       (function(window,document) {
@@ -80,6 +82,81 @@ OpenPicker defaults to picking Image
             console.log(openpickerResponse.files);
     });
 ```
+
+### Using Jquery
+
+```code
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script charset="utf-8" type="text/javascript">
+        $(function () {
+            $('#opbutton').click(function () {
+                window.openpicker.getFiles({
+                    mimetypes: "image/*",
+                    conversions: ['crop', 'rotate'],
+                    cropRatio: 0 / 0,
+                    subDirectory: 'your_usage_based_foler_name'
+                }, function (openpickerResponse) {
+                    $('#opurl').text(openpickerResponse.file.url);
+                    console.log(openpickerResponse);
+                });
+            });
+        });
+    </script>
+    <button id="opbutton"> Click here</button>
+    <h1 id="opurl"></h1>
+```
+### Using AngularJs
+
+#### template
+```code
+    <div ng-app="opApp">
+	    <div ng-controller="opController">
+						<md-button style="background-color:
+						rgb(3,155,229); 
+						font-weight: bolder; 
+						padding: 2px 15px"
+                           class="md-raised" 
+                           ng-click="vm.openPicker($event)" 
+                           aria-label="Add">
+                    Create
+                </md-button>
+		</div>
+    </div>
+    
+```
+
+#### controller
+```code
+    (function () {
+    'use strict';
+    angular
+        .module('opApp')
+        .controller('opController', opController);
+
+    /* @ngInject */
+    function opController() {
+
+        var vm = this;
+        vm.openPicker = function (e) {
+            window.openpicker.getFiles({
+                mimetypes: "image/*",
+                conversions: ['crop', 'rotate'],
+                cropRatio: 0 / 0,
+                subDirectory: <your_usage_based_foler_name>,
+                multiple : false
+            }, function (openpickerResponse) {
+                console.log(openpickerResponse.files);
+            });
+        };
+    }
+})();
+
+    
+```
+
 # Server Configuration
 OpenPicker expects a properties.conf file in the working directory. You can set the following options. You can set all the options in environment variables as well. Environment variables are given preference if set while reading a property.
 ```sh
@@ -109,8 +186,10 @@ All these are optional , pass these while invoking openpicker.getFile()
 
     - mimetypes : Comma seperated list of mimetypes (Ex: image/*,application/pdf)
     - conversions : ['crop','rotate'] 
-    - cropRatio : Ex 16/9 - used while cropping the image
+    - cropRatio : Ex 16/9 - used while cropping the image, 0/0 to random aspect ratio
     - channels : ['MY_COMPUTER'] - lets the client control channels to be used in the picker
+    - multiple: true// for multiple files and false for single file
+    - subDirectory : A variable name to upload files in different folders under base directory set in properties.conf file
 
 OpenPicker uses a number of open source projects to work properly:
 * [NgFileUpload] - Angular Directive to upload files by [@danialfarid]
@@ -131,12 +210,14 @@ And of course OpenOpicker itself is open source with a [public repository][openp
  - Write Tests
  - Add more channels
  - Add more filestores
+ - Editor Integrations like Quill.js
 
 Contributors
 -------------
 
  - [Gaurav Tiwari](<https://github.com/gauravtiwari5050>)
  - [Mohd Sanad Zaki Rizvi](<https://github.com/mohdsanadzakirizvi>)
+ - [Atul Joshi](<https://github.com/ajoshi31>)
 
 License
 ----
