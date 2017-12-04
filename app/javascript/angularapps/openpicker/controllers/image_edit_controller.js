@@ -36,7 +36,7 @@ ImageEditController.prototype.setupScopeMethods = function() {
       self.location.path('/upload');
       self.forceUpdateView();
 
-		},"image/jpeg","1.0");
+		},"image/png","1.0");
 	}
 
 	self.scope.skip = function() {

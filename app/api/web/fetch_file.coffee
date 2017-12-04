@@ -63,10 +63,10 @@ exports.init = (app) ->
 								).on('end', () -> 
 										if dataSize <= fileLimits.maxSize
 											responseObject = 
-											  name: fileName
-											  path: tmpDir
-											  size: prettysize(dataSize)
-											  type: content_type
+												name: fileName
+												path: tmpDir
+												size: prettysize(dataSize)
+												type: content_type
 										callback(null)									
 								)
 								.pipe(fs.createWriteStream(tmpDir+'/'+fileName))

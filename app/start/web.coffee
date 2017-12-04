@@ -22,8 +22,8 @@ exports.startApis = (err, results) ->
 		.set('views', path.join(__dirname, '../../website/views'))
 		.set('view engine', 'ejs')
 		.use(morgan('combined'))
-    .use(bodyParser.json())
-    .use(bodyParser.urlencoded({ extended: false }))
+		.use(bodyParser.json())
+		.use(bodyParser.urlencoded({ extended: false }))
 		.use(compression())
 		.use(cookieParser())
 
