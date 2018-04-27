@@ -13,9 +13,14 @@ exports.init = (app) ->
 			unique_id : "WEB_LINK"
 			name: "Web Link"
 			fa_icon: "link"
+		screenshot =
+			unique_id : "SCREENSHOT"
+			name: "Url Screenshot"
+			fa_icon: "camera"
 
 		channels.push(my_computer)
 		channels.push(web_link)
+		channels.push(screenshot)
 
 		
 		responseObject =

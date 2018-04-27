@@ -14,6 +14,10 @@ app.config(function($routeProvider) {
             templateUrl : 'template_web_link',
             controller : 'WebLinkController'
         })
+        .when('/channels/screenshot', {
+            templateUrl : 'template_screenshot',
+            controller : 'ScreenshotController'
+        })
         .when('/edit/image', {
             templateUrl : 'template_image_edit',
             controller  : 'ImageEditController'
