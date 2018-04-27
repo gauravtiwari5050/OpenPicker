@@ -11,6 +11,11 @@ OpenPicker is an open source and self hosted file picker for your websites.
 ```sh
 $ npm i -g openpicker
 ```
+
+```sh
+$ npm install -g coffee-script
+```
+
 ### Start the server
 ```sh
 $ openpicker
