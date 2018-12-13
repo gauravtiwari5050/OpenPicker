@@ -1,4 +1,7 @@
 async = require('async')
+readChunk = require('read-chunk');
+fileType = require('file-type');
+sizeOfImage = require('image-size');
 appconfig = require("../config/appconfig").appconfig
 
 unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
@@ -24,6 +27,15 @@ exports.uniqueId = (length=8) ->
   id = ""
   id += Math.random().toString(36).substr(2) while id.length < length
   id.substr 0, length
+
+exports.fileInfo = (file) =>
+	buffer = readChunk.sync(file.path, 0, fileType.minimumBytes)
+	object = fileType(buffer)
+	if object && object.mime.includes('image')
+		dimensions = sizeOfImage(file.path)
+		object.height = dimensions.height
+		object.width = dimensions.width
+	return object
 
 
 
