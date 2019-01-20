@@ -2,6 +2,7 @@ async = require('async')
 readChunk = require('read-chunk');
 fileType = require('file-type');
 sizeOfImage = require('image-size');
+ffprobe = require('ffprobe');
 appconfig = require("../config/appconfig").appconfig
 
 unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
@@ -28,15 +29,30 @@ exports.uniqueId = (length=8) ->
   id += Math.random().toString(36).substr(2) while id.length < length
   id.substr 0, length
 
-exports.fileInfo = (file) =>
+exports.imageInfo = (file, object, callback) =>
+	dimensions = sizeOfImage(file.path)
+	object.height = dimensions.height
+	object.width = dimensions.width
+	callback null, object
+
+exports.videoInfo = (file, object, callback) => 
+	pathObject = 
+		path: '/usr/bin/ffprobe'
+	
+	ffprobe file.path, pathObject, (err, info) -> 
+		if err
+			info = {}
+		object.details = info
+		callback null, object
+
+exports.fileInfo = (file, callback) =>
 	buffer = readChunk.sync(file.path, 0, fileType.minimumBytes)
 	object = fileType(buffer)
+	console.log('object.mime', object)
 	if object && object.mime.includes('image')
-		dimensions = sizeOfImage(file.path)
-		object.height = dimensions.height
-		object.width = dimensions.width
-	return object
-
+		return exports.imageInfo file, object, callback
+	else if object && object.mime.includes('video')
+		return exports.videoInfo file, object, callback
 
 
 				

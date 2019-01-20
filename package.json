@@ -21,6 +21,7 @@
     "csurf": "1.9.0",
     "ejs": "2.5.9",
     "express": "4.16.3",
+    "ffprobe": "^1.1.0",
     "file-type": "^10.6.0",
     "fs-extra": "5.0.0",
     "handlebars": "4.0.11",

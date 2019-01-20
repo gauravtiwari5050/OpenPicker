@@ -42,9 +42,13 @@ exports.init = (app) ->
 			responseObject =
 				name : file.name
 				path : fileName
-				info : util.fileInfo(file)
-			fs.unlinkSync(file.path)
-			util.sendJSONPResponse request,response,responseObject
+
+			util.fileInfo file, (err, info) -> 
+				if err
+					info = {}
+				responseObject.info = info
+				fs.unlinkSync(file.path)
+				util.sendJSONPResponse request,response,responseObject
 
 		
 		
