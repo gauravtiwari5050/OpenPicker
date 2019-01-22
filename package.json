@@ -1,6 +1,6 @@
 {
   "name": "openpicker",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Open Picker : Open source and self hosted file picker for websites",
   "engines": {
     "node": ">4.0.0",
