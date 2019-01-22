@@ -3,6 +3,7 @@ readChunk = require('read-chunk');
 fileType = require('file-type');
 sizeOfImage = require('image-size');
 ffprobe = require('ffprobe');
+checksum = require('checksum');
 appconfig = require("../config/appconfig").appconfig
 
 unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
@@ -29,6 +30,9 @@ exports.uniqueId = (length=8) ->
   id += Math.random().toString(36).substr(2) while id.length < length
   id.substr 0, length
 
+exports.fileChecksum = (file, callback) => 
+	checksum.file file, callback
+
 exports.imageInfo = (file, object, callback) =>
 	dimensions = sizeOfImage(file.path)
 	object.height = dimensions.height
@@ -48,11 +52,12 @@ exports.videoInfo = (file, object, callback) =>
 exports.fileInfo = (file, callback) =>
 	buffer = readChunk.sync(file.path, 0, fileType.minimumBytes)
 	object = fileType(buffer)
-	console.log('object.mime', object)
-	if object && object.mime.includes('image')
-		return exports.imageInfo file, object, callback
-	else if object && object.mime.includes('video')
-		return exports.videoInfo file, object, callback
+	exports.fileChecksum file.path, (err, checksum) =>
+		object.checksum = checksum
+		if object && object.mime.includes('image')
+			return exports.imageInfo file, object, callback
+		else if object && object.mime.includes('video')
+			return exports.videoInfo file, object, callback
 
 
 				

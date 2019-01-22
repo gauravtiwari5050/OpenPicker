@@ -13,6 +13,7 @@
     "async": "2.6.0",
     "aws-sdk": "2.229.1",
     "body-parser": "1.18.2",
+    "checksum": "^0.1.1",
     "coffeescript": "1.12.7",
     "compression": "1.7.x",
     "connect-multiparty": "2.1.0",
